@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>COSC 219 — Lab 1 self-check</title>
+  <style>
+    body { font-family: system-ui, sans-serif; line-height: 1.6; margin: 2rem auto;
+           max-width: 46rem; padding: 0 1rem; color: #12181F; }
+    h1 { font-size: 1.6rem; margin-bottom: .2rem; }
+    .sub { color: #6B7885; margin-top: 0; }
+    fieldset { border: 1px solid #DCE1E6; border-radius: 6px; padding: 1rem; }
+    legend { font-weight: 600; padding: 0 .4rem; }
+    label { display: block; font-size: .9rem; margin-top: .6rem; }
+    input[type=text] { width: 100%; padding: .45rem; border: 1px solid #B9C4CE;
+                       border-radius: 4px; font-family: monospace; font-size: .9rem; }
+    button { margin-top: 1rem; padding: .55rem 1.1rem; font-size: 1rem;
+             border: 0; border-radius: 5px; background: #1B7F5A; color: #fff; cursor: pointer; }
+    button:disabled { background: #B9C4CE; cursor: default; }
+    .page { margin-top: 1.6rem; border-top: 2px solid #12181F; padding-top: .6rem; }
+    .page h2 { font-size: 1.05rem; font-family: monospace; }
+    ul.res { list-style: none; padding: 0; }
+    ul.res li { padding: .28rem .5rem; border-bottom: 1px solid #EEF2F5; font-size: .92rem; }
+    .pass { color: #1B7F5A; } .fail { color: #A62B23; } .warn { color: #B9700A; }
+    .mark { font-family: monospace; font-weight: bold; display: inline-block; width: 3.4rem; }
+    .summary { margin-top: 1rem; padding: .7rem 1rem; border-left: 3px solid #2E5AAC;
+               background: #F4F6F7; font-size: .95rem; }
+    .note { background: #FBF1E4; border-left: 3px solid #B9700A;
+            padding: .7rem 1rem; margin-top: 1.2rem; font-size: .9rem; }
+  </style>
+<script>document.addEventListener('DOMContentLoaded', function() {
+						if (document.documentElement.hasAttribute('lang')) {
+							document.documentElement.dataset.customLang = '';
+							return;
+						}
+						document.documentElement.setAttribute('lang', 'en-us');
+					});</script><script>document.addEventListener('DOMContentLoaded', function() {
+						if (document.head.querySelector('title')) return;
+						var handleAppendTitle = function(evt) {
+							if (!evt || !evt.data) return;
+
+							try {
+								var data = JSON.parse(evt.data);
+								if (data.handler !== 'd2l.iframe.requestPageTitle' || !data.pageTitle) return;
+
+								window.removeEventListener('message', handleAppendTitle, false);
+
+								var titleElm = document.createElement('title');
+								titleElm.textContent = data.pageTitle;
+								document.head.appendChild(titleElm);
+							} catch (e) {}
+						};
+
+						window.addEventListener('message', handleAppendTitle, false);
+						window.parent.postMessage(JSON.stringify({ handler: 'd2l.iframe.requestPageTitle' }), '*');
+					});</script><script>window.addEventListener('message', function(event) { 
+					if( !event.data ) {
+						return;
+					}
+
+					let params;
+					try {
+						params = JSON.parse( event.data );
+					}
+					catch {
+						return;
+					}
+					if( !params.subject || params.subject !== 'lti.frameResize' ) {
+						return;
+					}
+
+					const MAX_FRAME_HEIGHT = 10000;
+					if( !params.height || params.height < 1 || params.height > MAX_FRAME_HEIGHT ) {
+						console.warn( 'Invalid height value received, aborting' );
+						return;
+					}
+					const el = document.getElementsByTagName( 'iframe' );
+					for ( let i=0; i < el.length; i++ ) {
+						if( el[i].contentWindow === event.source ) {
+							el[i].style.height = params.height + 'px';
+
+							console.info( 'Setting iFrame height to ' + params.height );
+
+							if( el[i].getAttribute('lockwidth') !== 'true'){
+								el[i].style.width = '100%';
+								console.info( 'Setting iFrame width to 100%' );
+							}
+						}
+					}
+				});</script><script src="https://s.brightspace.com/lib/bsi/2026.8.278/unbundled/embeds.js" type="module"></script><script>document.addEventListener('DOMContentLoaded', function() {
+					window.D2L.EmbedRenderer.renderEmbeds(document.body);
+				});</script><script src="https://s.brightspace.com/lib/bsi/2026.8.278/unbundled/mathjax.js" type="module"></script><script>document.addEventListener('DOMContentLoaded', function() {
+			if (document.querySelector('math, .d2l-element, .d2l-cplus-layout') || /\$\$|\\\(|\\\[|\\begin{|\\ref{|\\eqref{/.test(document.body.innerHTML)) {
+				document.querySelectorAll('mspace[linebreak="newline"]').forEach(elm => {
+					elm.setAttribute('style', 'display: block; height: 0.5rem;');
+				});
+
+				document.querySelectorAll('math mmultiscripts > none').forEach(elm => {
+					const mrow = document.createElementNS('http://www.w3.org/1998/Math/MathML', 'mrow');
+					elm.replaceWith(mrow);
+				});
+
+				window.D2L.MathJax.loadMathJax({"renderLatex":true,"outputScale":1.5,"enableMML3Support":false});
+			}
+		});</script><script src="https://s.brightspace.com/lib/bsi/2026.8.278/unbundled/prism.js" type="module"></script><script>document.addEventListener('DOMContentLoaded', function() {
+					document.querySelectorAll('.d2l-code').forEach(code => {
+						window.D2L.Prism.formatCodeElement(code);
+					});
+				});</script><script>document.addEventListener('DOMContentLoaded', async () => {
+			document.querySelectorAll('iframe[src*="quickLink.d2l"][src*="type=lti"]').forEach(iframe => {
+				iframe.style.borderStyle = 'none';
+			});
+		});</script><script src="https://s.brightspace.com/lib/bsi/2026.8.278/unbundled/context-provider-host-factory.js" type="module"></script><script>document.addEventListener('DOMContentLoaded', async () => {
+			document.documentElement.setAttribute('data-mathjax-context', '{"renderLatex":true,"outputScale":1.5,"enableMML3Support":false}');
+			window.D2L.ContextProvider.createContextProviderHost();
+		});</script><script>
+					if (window.frameElement !== null && !document.documentElement.hasAttribute('data-oslo')) {
+						const osloSettings = {"batch":"/d2l/api/oslo/batch?languageId=1","collection":"/d2l/api/oslo/collection?languageId=1","version":"W/\"20.26.8.28153.638396676610101010\""};
+						document.documentElement.setAttribute('data-oslo', JSON.stringify(osloSettings));
+					}
+				</script><script src="https://s.brightspace.com/lib/bsi/2026.8.278/unbundled/creator.js" type="module"></script><script>document.addEventListener('DOMContentLoaded', async () => {
+			const activities = [];
+			const practices = [];
+			const allPractices = document.querySelectorAll('.d2l-practice');
+			const elements = document.querySelectorAll('.d2l-element');
+			let layouts = [...document.querySelectorAll('.d2l-cplus-layout')];
+			const tables = document.querySelectorAll('table');
+			const contentStylerStyleLinks = document.querySelectorAll('head > link[href="https://templates.lcs.brightspace.com/lib/assets/css/styles.min.css"]');
+			const contentStylerOverides = document.querySelectorAll('head > link[href^="/d2l/le/contentstyler/"][data-override="override"]');
+
+			layouts = layouts.filter((layout) => layout.closest('.d2l-element.mceNonEditable') === null);
+
+			for (const practice of allPractices) {
+				const activityContainer = practice.hasAttribute('data-d2l-activity-href');
+				if (activityContainer) {
+					activities.push(practice);
+				}
+				else {
+					practices.push(practice);
+				}
+			}
+
+			if (layouts.length > 0) {
+				window.D2L.Creator.convertLayouts(layouts);
+			}
+			if (elements.length > 0) {
+				window.D2L.Creator.convertElements(elements, 6606, '/content/', true);
+			}
+			if (activities.length > 0) {
+				window.D2L.Creator.convertPracticeActivities(activities, 6606, '/content/');
+			}
+			if (practices.length > 0) {
+				window.D2L.Creator.convertPractices(practices, 6606, '/content/');
+			}
+			if (contentStylerStyleLinks.length > 0 && contentStylerOverides.length > 0 && tables.length > 0) {
+				window.D2L.Creator.wrapTables(tables);
+			}
+		});</script><script src="/d2l/im/d2lreader/D2LReader_v2.js?rsUrl=https%3a%2f%2fapp.readspeaker.com%2fcgi-bin%2frsent&amp;custId=10726&amp;lang=en_us&amp;listenText=Listen&amp;listenTitle=Listen+to+this+page&amp;mode=unknown&amp;v=20.26.8.28153"></script><script>
+				const allowDetach = true;
+
+				window.rsConf = {
+					general: {
+						usePost: true,
+						shadowDomSelector: '[data-rs-shadow-root], d2l-html-block'
+					},
+					ui: {
+						disableDetachment: !allowDetach,
+						playbackDetach: allowDetach,
+						tools: { detachment: allowDetach }
+					}
+				};
+			</script><script src="https://cdn-na.readspeaker.com/script/10726/webReaderForEducation/brightspace/current/webReader.js?pids=wr&amp;dload=BrightSpace"></script><script>function lti_launch( vars, target ) {
+					var query = '';
+					var new_tab = false;
+
+					for(var key in vars) {
+						if(query.length == 0) {
+							query += '?' + key + '=' + encodeURIComponent(vars[key]);
+						}
+						else {
+							query += '&' + key + '=' + encodeURIComponent(vars[key]);
+						}
+					}
+
+					var url = '/d2l/customization/pearsonlti/6606/Launch' + query;(target == '_blank') ? window.open( url, '_blank' ) : location.replace( url );}</script></head>
+<body>
+
+<h1>Lab 1 — self-check</h1>
+<p class="sub">Checks most of the structural requirements. It is a helper, not the marker.</p>
+
+<div class="note">
+  <b>Put this file in your project folder.</b> Copy <code>check.html</code> and
+  <code>check.js</code> into the same folder as <code>index.html</code>, then open
+  <code>check.html</code> with Live Server. It loads your pages from the same
+  origin, so leave the box below as <code>./</code>.
+</div>
+
+<fieldset>
+  <legend>Your pages</legend>
+  <label for="base">Folder containing your pages</label>
+  <input type="text" id="base" value="./">
+  <button id="run" type="button">Run the checks</button>
+</fieldset>
+
+<div id="output"></div>
+
+<div class="note">
+  <b>Two things this cannot check.</b> It runs in your browser, so it cannot see
+  your commit history, and it cannot judge whether your <code>alt</code> text is
+  <em>meaningful</em> — only that it exists. It also does not replace the W3C
+  validator; run that too.
+</div>
+
+<script src="check.js"></script>
+</body>
+</html>

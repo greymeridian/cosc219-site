@@ -9,7 +9,7 @@
 - [My GitHub Pages Site](https://greymeridian.github.io/cosc219-site/)
 
 **Things found difficult**
-- I found some minor difficulty regarding separation of identity on GitHub, and uploading my commits and changenotes to be only visible by real-name to the instructor. My GitHub is shared between personal and educational use, so I wanted only the changes made to COSC222 Lab 1 to be visible by real name to the instructor only.
+- I found some minor difficulty regarding separation of identity on GitHub, and uploading my commits and changenotes to be only visible by real-name to the instructor. My GitHub is shared between personal and educational use, so I wanted changenotes to only be visible by real name to the instructor only.
 
 **AI Usage Declaration**
 - VSCode Copilot Autocomplete, for initial datatype declaration and skeleton structure, as well as enforcing consistency with closing tags, hyperlink security, and scope of variables (headers, header cell scope, etc).

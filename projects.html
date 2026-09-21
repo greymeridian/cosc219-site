@@ -7,7 +7,6 @@
 </head>
 <body>
     <header>
-        <h1>What I'm Working On</h1>
         <nav>
             <ul>
                 <li><a href="index.html">Home</a></li>
@@ -15,31 +14,33 @@
                 <li><a href="projects.html">Projects</a></li>
             </ul>
         </nav>
+        <h1>What I'm Working On</h1>
     </header>
     <main>
         <article>
-            <h2>Current Projects</h2>
             <table>
                 <thead>
+                    <h2>Completed Projects</h2>
+                    <caption>A list of project's I'm currently working on</caption>
                     <tr>
-                        <th>Project Name</th>
-                        <th>Description</th>
-                        <th>Link</th>
+                        <th scope="col">Project Name</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Link</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>PLACEHOLDER PROJECT NAME 1</td>
+                        <td scope="row">PLACEHOLDER PROJECT NAME 1</td>
                         <td>PLACEHOLDER PROJECT DESCRIPTION 1</td>
                         <td><a href="PLACEHOLDER_PROJECT_LINK_1">View Project</a></td>
                     </tr>
                     <tr>
-                        <td>PLACEHOLDER PROJECT NAME 2</td>
+                        <td scope="row">PLACEHOLDER PROJECT NAME 2</td>
                         <td>PLACEHOLDER PROJECT DESCRIPTION 2</td>
                         <td><a href="PLACEHOLDER_PROJECT_LINK_2">View Project</a></td>
                     </tr>
                     <tr>
-                        <td>PLACEHOLDER PROJECT NAME 3</td>
+                        <td scope="row">PLACEHOLDER PROJECT NAME 3</td>
                         <td>PLACEHOLDER PROJECT DESCRIPTION 3</td>
                         <td><a href="PLACEHOLDER_PROJECT_LINK_3">View Project</a></td>
                     </tr>
@@ -48,21 +49,49 @@
         </article>
 
         <article>
-            <h2>Completed Projects</h2>
-            <ul>
-                <li>PLACEHOLDER COMPLETED PROJECT 1</li>
-                <li>PLACEHOLDER COMPLETED PROJECT 2</li>
-                <li>PLACEHOLDER COMPLETED PROJECT 3</li>
-            </ul>
+            <table>
+                <thead>
+                    <h3>Completed Projects</h3>
+                    <caption>A list of project's I've completed</caption>
+                    <tr>
+                        <th scope="col">Project Name</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Link</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td scope="row">PLACEHOLDER COMPLETED PROJECT NAME 1</td>
+                        <td>PLACEHOLDER COMPLETED PROJECT DESCRIPTION 1</td>
+                        <td><a href="PLACEHOLDER_COMPLETED_PROJECT_LINK_1">View Project</a></td>
+                    </tr>
+                    <tr>
+                        <td scope="row">PLACEHOLDER COMPLETED PROJECT NAME 2</td>
+                        <td>PLACEHOLDER COMPLETED PROJECT DESCRIPTION 2</td>
+                        <td><a href="PLACEHOLDER_COMPLETED_PROJECT_LINK_2">View Project</a></td>
+                    </tr>
+                    <tr>
+                        <td scope="row">PLACEHOLDER COMPLETED PROJECT NAME 3</td>
+                        <td>PLACEHOLDER COMPLETED PROJECT DESCRIPTION 3</td>
+                        <td><a href="PLACEHOLDER_COMPLETED_PROJECT_LINK_3">View Project</a></td>
+                    </tr>
+                </tbody>
+            </table>
         </article>
 
         <article>
-            <h2>Future Projects</h2>
-            <p>PLACEHOLDER FUTURE PROJECTS TEXT</p>
+            <h4>Future Projects</h4>
+            <p>Here are some projects I plan to work on in the future:</p>
+            <ul>
+                <li>PLACEHOLDER FUTURE PROJECT 1</li>
+                <li>PLACEHOLDER FUTURE PROJECT 2</li>
+                <li>PLACEHOLDER FUTURE PROJECT 3</li>
+            </ul>
         </article>
     </main>
     <footer>
-        <p>PLACEHOLDER FOOTER TEXT</p>
+            <!-- noreferrer enforced by VSCode autocomplete, ensures security by preventing referral tracking -->
+            <p><a href="https://github.com/greymeridian" id="github-link" target="_blank" rel="noopener noreferrer">Check me out on GitHub</a></p>
     </footer>
 </body>
 </html>

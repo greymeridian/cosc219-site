@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact</title>
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <h1>Contact Me:</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Get in Touch:</h2>
+            <p>If you need to reach out to me, please feel free to contact me via the following options.</p>
+            <form>
+                <fieldset>
+                    <legend>Contact Method</legend>
+                    <select name="contact-methods" id="contact-methods" required>
+                        <option value="" disabled selected>Select a contact method</option>
+                        <option value="email">Email</option>
+                        <option value="phone">Phone</option>
+                        <option value="discord">Discord</option>
+                    </select>
+                </fieldset>
+                <fieldset>
+                    <legend>Reply Request</legend>
+                    <p>Would you like a reply to your message?</p>
+                    <input type="checkbox" id="reply-request" name="reply-request" value="yes" required>
+                    <label for="reply-request">Yes, I would like a reply</label><br>
+                    <input type="checkbox" id="no-reply-request" name="reply-request" value="no" required>
+                    <label for="reply-request">No, I do not need a reply</label><br>
+                </fieldset>
+                <fieldset>
+                    <legend>Preferred Reply Method</legend>
+                    <input type="radio" id="reply-methods" name="reply-methods" value="email" required>
+                    <label for="reply-methods">Email</label><br>
+                    <input type="radio" id="phone-reply" name="reply-methods" value="phone" required>
+                    <label for="phone-reply">Phone</label><br>
+                    <input type="radio" id="discord-reply" name="reply-methods" value="discord" required>
+                    <label for="discord-reply">Discord</label><br>
+                </fieldset>
+            </form>
+        </section>
+    </main>
+</body>
+<footer>
+    <!-- noreferrer enforced by VSCode autocomplete, ensures security by preventing referral tracking -->
+    <p><a href="https://github.com/greymeridian" id="github-link" target="_blank" rel="noopener noreferrer">Check me out on GitHub</a></p>
+    </footer>
+</html>

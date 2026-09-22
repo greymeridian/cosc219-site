@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>COSC 219 — Lab 2 self-check</title>
+  <title>COSC 219 — Lab 1 self-check</title>
   <style>
     body { font-family: system-ui, sans-serif; line-height: 1.6; margin: 2rem auto;
            max-width: 46rem; padding: 0 1rem; color: #12181F; }
@@ -21,7 +21,7 @@
     .page h2 { font-size: 1.05rem; font-family: monospace; }
     ul.res { list-style: none; padding: 0; }
     ul.res li { padding: .28rem .5rem; border-bottom: 1px solid #EEF2F5; font-size: .92rem; }
-    .pass { color: #1B7F5A; } .fail { color: #A62B23; }
+    .pass { color: #1B7F5A; } .fail { color: #A62B23; } .warn { color: #B9700A; }
     .mark { font-family: monospace; font-weight: bold; display: inline-block; width: 3.4rem; }
     .summary { margin-top: 1rem; padding: .7rem 1rem; border-left: 3px solid #2E5AAC;
                background: #F4F6F7; font-size: .95rem; }
@@ -115,7 +115,7 @@
 			window.D2L.ContextProvider.createContextProviderHost();
 		});</script><script>
 					if (window.frameElement !== null && !document.documentElement.hasAttribute('data-oslo')) {
-						const osloSettings = {"batch":"/d2l/api/oslo/batch?languageId=1","collection":"/d2l/api/oslo/collection?languageId=1","version":"W/\"20.26.8.29533.638396676610101010\""};
+						const osloSettings = {"batch":"/d2l/api/oslo/batch?languageId=1","collection":"/d2l/api/oslo/collection?languageId=1","version":"W/\"20.26.8.28153.638396676610101010\""};
 						document.documentElement.setAttribute('data-oslo', JSON.stringify(osloSettings));
 					}
 				</script><script src="https://s.brightspace.com/lib/bsi/2026.8.278/unbundled/creator.js" type="module"></script><script>document.addEventListener('DOMContentLoaded', async () => {
@@ -155,7 +155,7 @@
 			if (contentStylerStyleLinks.length > 0 && contentStylerOverides.length > 0 && tables.length > 0) {
 				window.D2L.Creator.wrapTables(tables);
 			}
-		});</script><script src="/d2l/im/d2lreader/D2LReader_v2.js?rsUrl=https%3a%2f%2fapp.readspeaker.com%2fcgi-bin%2frsent&amp;custId=10726&amp;lang=en_us&amp;listenText=Listen&amp;listenTitle=Listen+to+this+page&amp;mode=unknown&amp;v=20.26.8.29533"></script><script>
+		});</script><script src="/d2l/im/d2lreader/D2LReader_v2.js?rsUrl=https%3a%2f%2fapp.readspeaker.com%2fcgi-bin%2frsent&amp;custId=10726&amp;lang=en_us&amp;listenText=Listen&amp;listenTitle=Listen+to+this+page&amp;mode=unknown&amp;v=20.26.8.28153"></script><script>
 				const allowDetach = true;
 
 				window.rsConf = {
@@ -185,8 +185,8 @@
 					var url = '/d2l/customization/pearsonlti/6606/Launch' + query;(target == '_blank') ? window.open( url, '_blank' ) : location.replace( url );}</script></head>
 <body>
 
-<h1>Lab 2 — self-check</h1>
-<p class="sub">Checks the form, the stylesheet, and the no-layout constraint.</p>
+<h1>Lab 1 — self-check</h1>
+<p class="sub">Checks most of the structural requirements. It is a helper, not the marker.</p>
 
 <div class="note">
   <b>Put this file in your project folder.</b> Copy <code>check.html</code> and
@@ -196,7 +196,7 @@
 </div>
 
 <fieldset>
-  <legend>Your site</legend>
+  <legend>Your pages</legend>
   <label for="base">Folder containing your pages</label>
   <input type="text" id="base" value="./">
   <button id="run" type="button">Run the checks</button>
@@ -205,9 +205,10 @@
 <div id="output"></div>
 
 <div class="note">
-  <b>What this cannot judge.</b> Whether your spacing is consistent, whether your
-  colours are readable, or whether you chose sensible selectors. It also does not
-  replace the W3C HTML and CSS validators, or tabbing through the page yourself.
+  <b>Two things this cannot check.</b> It runs in your browser, so it cannot see
+  your commit history, and it cannot judge whether your <code>alt</code> text is
+  <em>meaningful</em> — only that it exists. It also does not replace the W3C
+  validator; run that too.
 </div>
 
 <script src="check.js"></script>

@@ -9,7 +9,7 @@
 </head>
 <body>
     <header>
-        <nav>
+        <nav class="site-nav">
             <ul>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="about.html">About</a></li>
@@ -25,7 +25,20 @@
             <p>If you need to reach out to me, please feel free to contact me via the following options.</p>
             <form>
                 <fieldset>
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+                </fieldset>
+                <fieldset>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </fieldset>
+                <fieldset>
+                    <label for="message">Message:</label>
+                    <textarea id="message" name="message" rows="4" required></textarea>
+                </fieldset>
+                <fieldset>  
                     <legend>Contact Method</legend>
+                    <label for="contact-methods">Preferred contact method:</label>
                     <select name="contact-methods" id="contact-methods" required>
                         <option value="" disabled selected>Select a contact method</option>
                         <option value="email">Email</option>
@@ -36,10 +49,8 @@
                 <fieldset>
                     <legend>Reply Request</legend>
                     <p>Would you like a reply to your message?</p>
-                    <input type="checkbox" id="reply-request" name="reply-request" value="yes" required>
+                    <input type="checkbox" id="reply-request" name="reply-request" value="yes">
                     <label for="reply-request">Yes, I would like a reply</label><br>
-                    <input type="checkbox" id="no-reply-request" name="reply-request" value="no" required>
-                    <label for="reply-request">No, I do not need a reply</label><br>
                 </fieldset>
                 <fieldset>
                     <legend>Preferred Reply Method</legend>
@@ -50,12 +61,13 @@
                     <input type="radio" id="discord-reply" name="reply-methods" value="discord" required>
                     <label for="discord-reply">Discord</label><br>
                 </fieldset>
+                <button type="submit">Submit</button>
             </form>
         </section>
     </main>
-</body>
 <footer>
     <!-- noreferrer enforced by VSCode autocomplete, ensures security by preventing referral tracking -->
     <p><a href="https://github.com/greymeridian" id="github-link" target="_blank" rel="noopener noreferrer">Check me out on GitHub</a></p>
     </footer>
+</body>
 </html>

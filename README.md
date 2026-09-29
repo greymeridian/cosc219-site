@@ -1,3 +1,19 @@
+## COSC 219 — Lab 2
+### Changes
+Added a contact page with an accessible HTML form and added a shared external stylesheet across all four pages. The projects table structure was also corrected for HTML validation.
+
+### Styling Decision
+I used a maximum width on the main content and centered it with automatic margins. This keeps the content from becoming too wide on larger displays while allowing it to resize naturally on smaller displays.
+
+**AI Usage Declaration**
+- VSCode Copilot Autocomplete: for initial doctype declaration and skeleton structure
+- ChatGPT: assisted with explaining syntax, and automated W3C testing & troubleshooting.
+
+**Live GitHub Pages URL**
+- [My GitHub Pages Site](https://greymeridian.github.io/cosc219-site/)
+
+---
+
 # COSC 219 — Lab 1
 
 ## Student Additions to README
@@ -12,10 +28,8 @@
 - I found some minor difficulty regarding separation of identity on GitHub, and uploading my commits and changenotes to be only visible by real-name to the instructor. My GitHub is shared between personal and educational use, so I wanted changenotes to only be visible by real name to the instructor only.
 
 **AI Usage Declaration**
-- VSCode Copilot Autocomplete, for initial datatype declaration and skeleton structure, as well as enforcing consistency with closing tags, hyperlink security, and scope of variables (headers, header cell scope, etc).
+- VSCode Copilot Autocomplete, for initial doctype declaration and skeleton structure, as well as enforcing consistency with closing tags, hyperlink security, and scope of variables (headers, header cell scope, etc).
 - ChatGPT/Gemini for explaining syntax and underlying functions of concepts such as noopener, noreferrer, and header cell scope.
-
-**Please note that the repository contains a blank styles.css solely to pass required the checks on the unit tester provided in the lab, however page currently contains no styling as per lab rubric**
 
 ---
 

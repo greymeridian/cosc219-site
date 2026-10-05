@@ -1,260 +1,234 @@
-/* COSC 219 — Lab 2 self-check
-   Fetches each page and the stylesheet, then reports on the requirements. */
+/* COSC 219 — Lab 3 self-check
+   Two kinds of check:
+     1. reads the stylesheet as text — layout techniques, media queries, units
+     2. renders each page in an off-screen iframe at three widths and measures
+        whether anything overflows horizontally
+   Must be served from the same folder as your pages. */
 
 const PAGES = ["index.html", "about.html", "projects.html", "contact.html"];
+const WIDTHS = [320, 768, 1280];
 
-document.querySelector("#run").addEventListener("click", async () => {
-  const btn = document.querySelector("#run");
-  const out = document.querySelector("#output");
-  let base = document.querySelector("#base").value.trim();
+const $ = (s) => document.querySelector(s);
 
-  if (!base) base = "./";
+function renderResults(box, results, counters) {
+  const ul = document.createElement("ul");
+  ul.className = "res";
+  for (const r of results) {
+    r.ok ? counters.pass++ : counters.fail++;
+    const li = document.createElement("li");
+    const m = document.createElement("span");
+    m.className = "mark " + (r.ok ? "pass" : "fail");
+    m.textContent = r.ok ? "PASS" : "FAIL";
+    li.append(m);
+    li.append(document.createTextNode(r.label + (!r.ok && r.hint ? ` — ${r.hint}` : "")));
+    ul.append(li);
+  }
+  box.append(ul);
+}
+
+/* Decide whether a measurement counts as overflow, and phrase the report.
+   Kept as a pure function so it can be tested without a browser: the
+   measuring is the browser's job, the judgement is ours. A tolerance of
+   1px absorbs sub-pixel rounding, which otherwise reports false failures
+   on perfectly fine layouts. */
+function judgeOverflow({ width, scrollW, clientW, culprit }) {
+  const overflow = scrollW - clientW;
+  const bad = overflow > 1;
+  return {
+    label: `no horizontal overflow at ${width}px`,
+    ok: !bad,
+    hint: bad
+      ? `content is ${scrollW}px wide in a ${clientW}px viewport` +
+        (culprit ? ` — widest offender: <${culprit}>` : "")
+      : ""
+  };
+}
+
+/* Load a page in an off-screen iframe at a fixed width and measure it. */
+function measure(url, width) {
+  return new Promise((resolve) => {
+    const frame = document.createElement("iframe");
+    frame.style.width = width + "px";
+    frame.src = url;
+    $("#stage").append(frame);
+
+    const done = (result) => {
+      frame.remove();
+      resolve(result);
+    };
+
+    frame.addEventListener("load", () => {
+      // give layout and any images a moment to settle
+      setTimeout(() => {
+        try {
+          const d = frame.contentDocument;
+          const scrollW = d.documentElement.scrollWidth;
+          const clientW = d.documentElement.clientWidth;
+          const overflow = scrollW - clientW;
+
+          // find the widest offender, so the report is actionable
+          let culprit = null;
+          if (overflow > 1) {
+            let widest = 0;
+            for (const el of d.body.querySelectorAll("*")) {
+              const r = el.getBoundingClientRect();
+              if (r.right > clientW + 1 && r.width > widest) {
+                widest = r.width;
+                culprit = el.tagName.toLowerCase() +
+                          (el.className && typeof el.className === "string" && el.className.trim()
+                            ? "." + el.className.trim().split(/\s+/)[0] : "");
+              }
+            }
+          }
+          done({ ok: true, culprit, scrollW, clientW });
+        } catch (err) {
+          done({ ok: false, error: "could not measure (different origin?)" });
+        }
+      }, 350);
+    });
+
+    setTimeout(() => done({ ok: false, error: "page did not load" }), 8000);
+  });
+}
+
+$("#run").addEventListener("click", async () => {
+  const btn = $("#run");
+  const out = $("#output");
+  let base = $("#base").value.trim() || "./";
   if (!base.endsWith("/")) base += "/";
 
-  btn.disabled = true; btn.textContent = "Checking…"; out.innerHTML = "";
-  let pass = 0, fail = 0;
-  const sheetHrefs = new Set();
+  btn.disabled = true;
+  btn.textContent = "Checking…";
+  out.innerHTML = "";
+  const counters = { pass: 0, fail: 0 };
 
-  const render = (box, results) => {
-    const ul = document.createElement("ul");
-    ul.className = "res";
-    for (const r of results) {
-      r.ok ? pass++ : fail++;
-      const li = document.createElement("li");
-      const m = document.createElement("span");
-      m.className = "mark " + (r.ok ? "pass" : "fail");
-      m.textContent = r.ok ? "PASS" : "FAIL";
-      li.append(m);
-      li.append(document.createTextNode(r.label + (!r.ok && r.hint ? ` — ${r.hint}` : "")));
-      ul.append(li);
+  /* ---------- 1 · the stylesheet ---------- */
+  const cssBox = document.createElement("div");
+  cssBox.className = "page";
+  cssBox.innerHTML = "<h2>stylesheet</h2>";
+  out.append(cssBox);
+
+  const R = [];
+  const check = (label, ok, hint = "") => R.push({ label, ok, hint });
+
+  let css = "";
+  let sheetHref = null;
+  try {
+    const home = await (await fetch(base + "index.html")).text();
+    const doc = new DOMParser().parseFromString(home, "text/html");
+    const link = doc.querySelector('link[rel="stylesheet"]');
+    sheetHref = link && link.getAttribute("href");
+    if (sheetHref) {
+      const res = await fetch(new URL(sheetHref, new URL(base, location.href)).href);
+      if (res.ok) css = await res.text();
     }
-    box.append(ul);
-  };
+  } catch { /* reported below */ }
 
-  // ---------- pages ----------
+  if (!css.trim()) {
+    check("stylesheet found and fetched", false,
+          "could not read the stylesheet linked from index.html");
+    renderResults(cssBox, R, counters);
+  } else {
+    check("stylesheet found and fetched", true, sheetHref);
+    const clean = css.replace(/\/\*[\s\S]*?\*\//g, "");
+
+    // Break the stylesheet into { selector, body } pairs so the checks can
+    // ask about a SPECIFIC component. Checking the whole file globally lets
+    // flex used anywhere satisfy "the nav uses flex", which is not the same
+    // claim at all.
+    const rules = [];
+    for (const m of clean.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
+      rules.push({ sel: m[1].trim(), body: m[2] });
+    }
+    const rulesMatching = (re) => rules.filter(r => re.test(r.sel));
+    const anyRule = (selRe, declRe) => rulesMatching(selRe).some(r => declRe.test(r.body));
+
+    // layout techniques, asked of the right components
+    check("Flexbox used somewhere", /display\s*:\s*(inline-)?flex/.test(clean));
+    check("the navigation uses Flexbox",
+          anyRule(/\bnav\b|\.nav/i, /display\s*:\s*(inline-)?flex/),
+          "a flex rule elsewhere doesn't lay out the nav");
+
+    check("CSS Grid used somewhere", /display\s*:\s*(inline-)?grid/.test(clean));
+    const gridRules = rules.filter(r => /display\s*:\s*(inline-)?grid/.test(r.body));
+    check("a grid defines its columns",
+          gridRules.some(r => /grid-template-columns\s*:/.test(r.body)) ||
+          rules.some(r => /grid-template-columns\s*:/.test(r.body)));
+    const gridsWithoutGap = gridRules.filter(r => !/(^|[\s;])gap\s*:/.test(r.body));
+    check("every grid container uses gap rather than margins",
+          gridRules.length > 0 && gridsWithoutGap.length === 0,
+          gridsWithoutGap.length
+            ? `missing on: ${gridsWithoutGap.map(r => r.sel).join(", ")}`
+            : "no grid container found");
+
+    check("justify-content or align-items used",
+          /justify-content\s*:|align-items\s*:/.test(clean));
+
+    // media queries
+    const queries = clean.match(/@media[^{]+/g) || [];
+    check(`two or more media queries (${queries.length})`, queries.length >= 2);
+
+    const minW = queries.filter(q => /min-width/.test(q)).length;
+    const maxW = queries.filter(q => /max-width/.test(q)).length;
+    check(`mobile-first: min-width queries (${minW} min / ${maxW} max)`,
+          minW > 0 && minW >= maxW,
+          maxW > minW ? "mostly max-width means desktop-first" : "");
+
+    const remBp = queries.filter(q => /\d*\.?\d+\s*rem/.test(q)).length;
+    const pxBp = queries.filter(q => /\d+\s*px/.test(q)).length;
+    check(`breakpoints in rem (${remBp} rem / ${pxBp} px)`, remBp >= pxBp,
+          pxBp > remBp ? "rem breakpoints respond to the reader's text size too" : "");
+
+    // common device-width copy-paste
+    const deviceish = queries.filter(q => /\b(768|1024|480|375|414)px\b/.test(q));
+    check("breakpoints not copied device widths", deviceish.length === 0,
+          deviceish.length ? "768px / 1024px etc. are device sizes, not your content's" : "");
+
+    // responsive images
+    check("images constrained with max-width",
+          /img[^{]*\{[^}]*max-width\s*:\s*100%/.test(clean) ||
+          /max-width\s*:\s*100%/.test(clean));
+
+    // no inline styling carried over
+    check("no fixed px width on a layout container",
+          !/\b(main|nav|header|footer|\.container|\.cards)\s*\{[^}]*[^-]width\s*:\s*\d+px/.test(clean),
+          "use %, fr, or max-width instead");
+
+    renderResults(cssBox, R, counters);
+  }
+
+  /* ---------- 2 · rendered width tests ---------- */
   for (const page of PAGES) {
     const box = document.createElement("div");
     box.className = "page";
     box.innerHTML = `<h2>${page}</h2>`;
     out.append(box);
 
-    let html;
-    try {
-      const res = await fetch(base + page);
-      if (!res.ok) {
-        box.innerHTML += `<p class="fail">Could not load — HTTP ${res.status}.
-          Check the filename's capitalisation.</p>`;
-        fail++; continue;
+    const pageResults = [];
+    for (const w of WIDTHS) {
+      const m = await measure(base + page, w);
+      if (!m.ok) {
+        pageResults.push({ label: `renders at ${w}px`, ok: false, hint: m.error });
+        continue;
       }
-      html = await res.text();
-    } catch {
-      box.innerHTML += `<p class="fail">Could not fetch. Is the repository public?</p>`;
-      fail++; continue;
+      pageResults.push(judgeOverflow({
+        width: w, scrollW: m.scrollW, clientW: m.clientW, culprit: m.culprit
+      }));
     }
-
-    const doc = new DOMParser().parseFromString(html, "text/html");
-    const R = [];
-    const check = (label, ok, hint = "") => R.push({ label, ok, hint });
-
-    // stylesheet linked, and no inline styling
-    const links = [...doc.querySelectorAll('link[rel="stylesheet"]')];
-    check("external stylesheet linked", links.length > 0);
-    links.forEach(l => sheetHrefs.add(l.getAttribute("href")));
-    check("no <style> block", doc.querySelectorAll("style").length === 0);
-    const inline = doc.querySelectorAll("[style]").length;
-    check("no inline style attributes", inline === 0, inline ? `${inline} found` : "");
-
-    // nav includes all four pages
-    const nav = doc.querySelector("nav");
-    check("has a nav", !!nav);
-    if (nav) {
-      const hrefs = [...nav.querySelectorAll("a")].map(a => a.getAttribute("href") || "");
-      const all = PAGES.every(p => hrefs.some(h => h.includes(p)));
-      check("nav links to all four pages", all,
-            all ? "" : "contact.html must be in the nav on every page");
-    }
-
-    // document basics carried over from Lab 1
-    check("exactly one h1", doc.querySelectorAll("h1").length === 1);
-    const lv = [...doc.querySelectorAll("h1,h2,h3,h4,h5,h6")].map(h => +h.tagName[1]);
-    let skip = null;
-    for (let i = 1; i < lv.length; i++)
-      if (lv[i] - lv[i - 1] > 1) { skip = [lv[i - 1], lv[i]]; break; }
-    check("no skipped heading levels", skip === null,
-          skip ? `jumps from h${skip[0]} to h${skip[1]}` : "");
-
-    // ---- the form ----
-    if (page === "contact.html") {
-      const form = doc.querySelector("form");
-      check("has a form", !!form);
-      if (form) {
-        const controls = [...form.querySelectorAll("input, select, textarea")];
-        const named = controls.filter(c => c.hasAttribute("name"));
-        check(`every control has a name (${named.length}/${controls.length})`,
-              named.length === controls.length);
-
-        // label association
-        const ids = new Set([...form.querySelectorAll("label[for]")]
-                            .map(l => l.getAttribute("for")));
-        const unlabelled = controls.filter(c => {
-          if (c.type === "submit" || c.type === "hidden") return false;
-          if (c.closest("label")) return false;
-          return !(c.id && ids.has(c.id));
-        });
-        check(`every control is labelled (${unlabelled.length} missing)`,
-              unlabelled.length === 0,
-              unlabelled.map(c => c.name || c.type).join(", "));
-
-        check("has a required text input",
-              !!form.querySelector('input[type="text"][required], input:not([type])[required]'));
-        check('has a required type="email" input',
-              !!form.querySelector('input[type="email"][required]'));
-
-        const sel = form.querySelector("select");
-        check("has a select", !!sel);
-        if (sel) check("select has 3+ options",
-                       sel.querySelectorAll("option").length >= 3);
-
-        const radios = [...form.querySelectorAll('input[type="radio"]')];
-        check(`has radio buttons (${radios.length})`, radios.length >= 2);
-        if (radios.length) {
-          const names = new Set(radios.map(r => r.getAttribute("name")));
-          check("radios share one name attribute", names.size === 1,
-                names.size > 1 ? `found ${names.size} different names` : "");
-          check("radios are inside a fieldset",
-                radios.every(r => !!r.closest("fieldset")));
-          const fs = radios[0].closest("fieldset");
-          check("that fieldset has a legend", !!(fs && fs.querySelector("legend")));
-        }
-        check("has a checkbox", !!form.querySelector('input[type="checkbox"]'));
-        check("has a textarea", !!form.querySelector("textarea"));
-        check("has a submit button",
-              !!form.querySelector('button[type="submit"], button:not([type]), input[type="submit"]'));
-
-        const ph = controls.filter(c => c.hasAttribute("placeholder") &&
-                                        !(c.id && ids.has(c.id)) && !c.closest("label"));
-        check("no placeholder used in place of a label", ph.length === 0);
-      }
-    }
-
-    // ---- the table ----
-    if (page === "projects.html") {
-      const table = doc.querySelector("table");
-      check("has a table", !!table);
-      if (table) {
-        check("table has a caption", !!table.querySelector("caption"));
-        check("table has a thead", !!table.querySelector("thead"));
-        check("table has a tbody", !!table.querySelector("tbody"));
-        const ths = [...table.querySelectorAll("th")];
-        check("header cells use scope",
-              ths.length > 0 && ths.every(t => t.hasAttribute("scope")));
-      }
-    }
-
-    render(box, R);
+    renderResults(box, pageResults, counters);
   }
-
-  // ---------- the stylesheet ----------
-  const box = document.createElement("div");
-  box.className = "page";
-  box.innerHTML = `<h2>stylesheet</h2>`;
-  out.append(box);
-
-  const R = [];
-  const check = (label, ok, hint = "") => R.push({ label, ok, hint });
-
-  check("all pages link the same single stylesheet", sheetHrefs.size === 1,
-        sheetHrefs.size > 1 ? `found ${sheetHrefs.size}: ${[...sheetHrefs].join(", ")}` : "");
-
-  let css = "";
-  for (const href of sheetHrefs) {
-    try {
-      const res = await fetch(new URL(href, new URL(base, location.href)).href);
-      if (res.ok) css += "\n" + await res.text();
-    } catch { /* ignore */ }
-  }
-
-  if (!css.trim()) {
-    check("stylesheet could be fetched", false, "check the href path");
-  } else {
-    check("stylesheet could be fetched", true);
-
-    // strip comments so commented-out code doesn't count
-    const clean = css.replace(/\/\*[\s\S]*?\*\//g, "");
-
-    // custom properties
-    const defined = [...clean.matchAll(/(--[\w-]+)\s*:/g)].map(m => m[1]);
-    const uniqueDefs = [...new Set(defined)];
-    check(`four or more custom properties defined (${uniqueDefs.length})`,
-          uniqueDefs.length >= 4);
-    const usedTwice = uniqueDefs.filter(n =>
-      (clean.match(new RegExp(`var\\(\\s*${n}\\b`, "g")) || []).length >= 2);
-    check(`each used at least twice (${usedTwice.length} of ${uniqueDefs.length})`,
-          uniqueDefs.length > 0 && usedTwice.length === uniqueDefs.length,
-          uniqueDefs.filter(n => !usedTwice.includes(n)).join(", "));
-
-    // box model
-    check("box-sizing: border-box is set", /box-sizing\s*:\s*border-box/.test(clean));
-    check("a max-width is used", /max-width\s*:/.test(clean));
-    check("a border-radius is used", /border-radius\s*:/.test(clean));
-
-    // selectors
-    check("descendant selector used", /\b[a-z]+\s+[a-z.#\[][\w.\-\[\]="']*\s*\{/i.test(clean));
-    check("class selector used", /\.[a-zA-Z][\w-]*\s*(\{|,|\s)/.test(clean));
-    check("attribute selector used", /\[[a-zA-Z-]+\s*[~^$*|]?=/.test(clean));
-    check(":hover style present", /:hover/.test(clean));
-    check(":focus style present", /:focus/.test(clean),
-          /:focus/.test(clean) ? "" : "keyboard users need this");
-
-    // If the outline is removed, something visible must replace it. Careful:
-    // "outline: none" itself contains the word "outline", so a naive search
-    // for a replacement passes on the very code it should catch.
-    const killedOutline = /outline\s*:\s*(none|0)\b/.test(clean);
-    if (killedOutline) {
-      const focusBlocks = clean.match(/:focus[^{]*\{[^}]*\}/g) || [];
-      const hasRealOutline = (block) => {
-        // Read the VALUE rather than pattern-matching around it. A lookahead
-        // after \s* can slide past the space and match "outline: none"
-        // as though it were a real value.
-        for (const m of block.matchAll(/outline\s*:\s*([^;}]+)/g)) {
-          const value = m[1].trim();
-          if (value !== "none" && value !== "0") return true;
-        }
-        return false;
-      };
-      const replaced = focusBlocks.some(b =>
-        /box-shadow\s*:/.test(b) ||
-        /border[\w-]*\s*:/.test(b) ||
-        /background[\w-]*\s*:/.test(b) ||
-        hasRealOutline(b));
-      check("outline removed, but something visible replaces it", replaced,
-            "outline: none with no replacement leaves keyboard users lost");
-    }
-
-    // typography
-    check("font-family declared", /font-family\s*:/.test(clean));
-    check("line-height declared", /line-height\s*:/.test(clean));
-    const remCount = (clean.match(/\d*\.?\d+rem/g) || []).length;
-    check(`rem units used (${remCount})`, remCount >= 3);
-    const pxFont = (clean.match(/font-size\s*:\s*\d+px/g) || []);
-    check("font-size not set in px", pxFont.length === 0,
-          pxFont.length ? `${pxFont.length} px font-size${pxFont.length > 1 ? "s" : ""}` : "");
-
-    // THE constraint
-    const flex = /display\s*:\s*(inline-)?flex/.test(clean);
-    const grid = /display\s*:\s*(inline-)?grid/.test(clean);
-    check("no display: flex (that's Lab 3)", !flex);
-    check("no display: grid (that's Lab 3)", !grid);
-  }
-
-  render(box, R);
 
   const s = document.createElement("div");
   s.className = "summary";
-  s.innerHTML = `<p><b>${pass} passed, ${fail} to fix.</b></p>
-    <p style="color:#6B7885">Still to do by hand: run both W3C validators, tab
-    through every page, and check your form at a narrow window width.</p>`;
+  s.innerHTML = `<p><b>${counters.pass} passed, ${counters.fail} to fix.</b></p>
+    <p style="color:#6B7885">Still to do by hand: resize a real browser slowly and
+    watch for the point your layout stops looking right, tab through every page,
+    and run both W3C validators.</p>`;
   out.append(s);
 
-  btn.disabled = false; btn.textContent = "Run the checks";
+  btn.disabled = false;
+  btn.textContent = "Run the checks";
 });
+
+/* Exported for the test harness; harmless in a browser. */
+if (typeof module !== "undefined") module.exports = { judgeOverflow };

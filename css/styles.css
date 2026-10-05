@@ -24,13 +24,22 @@ fieldset {
 }
 
 .site-nav {
+    display: flex;
+    flex-direction: center;
+    gap: 1rem;
     margin-bottom: 1rem;
+}
+
+.site-nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    list-style: none;
 }
 
 nav a {
     color: var(--primary-color);
     text-decoration: none;
-    margin-right: 1rem;
 }
 
 nav a:hover {
@@ -62,4 +71,12 @@ textarea {
     border-radius: 0.25rem;
     background-color: var(--background-color);
     color: var(--text-color);
+}
+
+@media (min-width: 38rem) {
+    .site-nav {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
 }

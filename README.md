@@ -1,6 +1,7 @@
 ## Changes Post-Submission
 
 - Improved page readability with consistent content spacing, bordered tables, a defined navigation bar, and footer separation.
+- Uploaded some previous projects to GitHub and added links to projects.html
 
 ---
 

@@ -25,7 +25,7 @@ fieldset {
 
 .site-nav {
     display: flex;
-    flex-direction: center;
+    flex-direction: column;
     gap: 1rem;
     margin-bottom: 1rem;
 }
@@ -73,10 +73,37 @@ textarea {
     color: var(--text-color);
 }
 
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+
 @media (min-width: 38rem) {
     .site-nav {
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
+    }
+
+    .cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .about-layout {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 1rem;
+    }
+}
+
+@media (min-width: 58rem) {
+    .cards {
+        grid-template-columns: repeat(3, 1fr);
     }
 }

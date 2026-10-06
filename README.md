@@ -1,15 +1,47 @@
-## COSC 219 — Lab 2
+# COSC 219 - Lab 3
+
 ### Changes
+
+Added mobile first responsive layout with Flexbox and CSS Grid. The nav bar, about page columns, and project page columns now adapt based on screen size.
+
+## Breakpoints
+
+- 38rem: Allows the navigation to display horizontally, the projects to use two columns, and the About page to use two columns.
+- 58rem: Allows the projects to use three columns without making the content too narrow.
+
+## Layout decisions
+
+- Flexbox is used for the navigation because the navigation is a one-dimensional layout.
+- CSS Grid is used for the project cards and the About page because these sections require content to be arranged into columns.
+
+**Live GitHub Pages URL**
+
+- [My GitHub Pages Site](https://greymeridian.github.io/cosc219-site/)
+
+**AI Usage Declaration**
+
+- VSCode Copilot: to speed up manual input by accepting autocomplete suggestions where appropriate.
+- ChatGPT: assisted with explaining syntax and troubleshooting.
+
+---
+
+# COSC 219 — Lab 2
+
+### Changes
+
 Added a contact page with an accessible HTML form and added a shared external stylesheet across all four pages. The projects table structure was also corrected for HTML validation.
 
 ### Styling Decision
+
 I used a maximum width on the main content and centered it with automatic margins. This keeps the content from becoming too wide on larger displays while allowing it to resize naturally on smaller displays.
 
 **AI Usage Declaration**
+
 - VSCode Copilot Autocomplete: for initial doctype declaration and skeleton structure
 - ChatGPT: assisted with explaining syntax, and automated W3C testing & troubleshooting.
 
 **Live GitHub Pages URL**
+
 - [My GitHub Pages Site](https://greymeridian.github.io/cosc219-site/)
 
 ---
@@ -17,17 +49,22 @@ I used a maximum width on the main content and centered it with automatic margin
 # COSC 219 — Lab 1
 
 ## Student Additions to README
+
 **What the site is in two to three sentences**
+
 - The site will be designed as a portfolio showcasing my current academic progress.
 - I will also use the site as a personal portfolio showcasing any personal projects I am able to upload.
 
 **Live GitHub Pages URL**
+
 - [My GitHub Pages Site](https://greymeridian.github.io/cosc219-site/)
 
 **Things found difficult**
+
 - I found some minor difficulty regarding separation of identity on GitHub, and uploading my commits and changenotes to be only visible by real-name to the instructor. My GitHub is shared between personal and educational use, so I wanted changenotes to only be visible by real name to the instructor only.
 
 **AI Usage Declaration**
+
 - VSCode Copilot Autocomplete, for initial doctype declaration and skeleton structure, as well as enforcing consistency with closing tags, hyperlink security, and scope of variables (headers, header cell scope, etc).
 - ChatGPT/Gemini for explaining syntax and underlying functions of concepts such as noopener, noreferrer, and header cell scope.
 
@@ -36,7 +73,7 @@ I used a maximum width on the main content and centered it with automatic margin
 ## Environment, Git & Your First Site
 
 | File | What it is |
-|---|---|
+| --- | --- |
 | `COSC219_Lab1_Handout.docx` | The student handout — edit in Word, post to Moodle |
 | `starter/` | The self-check tool — students copy it into their own project folder |
 | `instructor/` | Marking sheet, teaching notes, verification record, reference solution, generator |

@@ -78,12 +78,14 @@ img {
     height: auto;
 }
 
+/* Mobile first project card layout */
 .cards {
     display: grid;
     grid-template-columns: 1fr;
     gap: 1rem;
 }
 
+/* Medium screen layout */
 @media (min-width: 38rem) {
     .site-nav {
         flex-direction: row;
@@ -102,6 +104,7 @@ img {
     }
 }
 
+/* Larger screen layout */
 @media (min-width: 58rem) {
     .cards {
         grid-template-columns: repeat(3, 1fr);

@@ -1,8 +1,15 @@
+## Changes Post-Submission
+
+- Improved page readability with consistent content spacing, bordered tables, a defined navigation bar, and footer separation.
+
+---
+
 # COSC 219 - Lab 3
 
 ### Changes
 
-Added mobile first responsive layout with Flexbox and CSS Grid. The nav bar, about page columns, and project page columns now adapt based on screen size.
+- Added mobile first responsive layout with Flexbox and CSS Grid. The nav bar, about page columns, and project page columns now adapt based on screen size.
+- Replaced placeholder text with portfolio information.
 
 ## Breakpoints
 

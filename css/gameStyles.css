@@ -1,0 +1,20 @@
+/* Provided. Lab 2 and 3 were the CSS labs — this is here so the game
+   looks presentable while you concentrate on the JavaScript. */
+:root { --brand:#1b7f5a; --ink:#12181f; --muted:#6b7885; --line:#dce1e6; }
+*, *::before, *::after { box-sizing: border-box; }
+body { font-family: system-ui, sans-serif; line-height:1.6; color:var(--ink);
+       margin:0; background:#fff; }
+main { max-width:32rem; margin:0 auto; padding:2rem 1rem; }
+h1 { font-size:1.6rem; }
+.word { font-family: ui-monospace, Consolas, monospace; font-size:2.4rem;
+        letter-spacing:.35rem; margin:1.5rem 0 .5rem; }
+.status { color:var(--muted); min-height:1.5em; }
+.result { font-weight:600; min-height:1.5em; }
+label { display:block; font-weight:600; margin-top:1rem; }
+input { padding:.5rem; font-size:1.2rem; width:4rem; text-align:center;
+        border:1px solid var(--muted); border-radius:6px; }
+button { padding:.5rem 1rem; font-size:1rem; border-radius:6px;
+         border:1px solid var(--brand); background:var(--brand); color:#fff;
+         cursor:pointer; margin-left:.4rem; }
+button#new-game { background:#fff; color:var(--brand); }
+input:focus, button:focus { outline:3px solid var(--brand); outline-offset:2px; }

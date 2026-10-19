@@ -1,5 +1,15 @@
 # COSC 219 - Lab 4
 
+- The word guessing game can be accessed via the `misc` page in the navigation panel. It contains a button to redirect the user to the guessing game. I centralized it here in anticipation for any further miscellaneous additions or games that may show up in the future for easier integration to the site.
+
+## Description
+
+- A hangman style JavaScript word guessing game where players guess letters to reveal a hidden word before running out of lives.
+
+## Part A Reflection
+
+- The result that surprised me most was typeof null returning "object", because I expected null to have its own type rather than being reported as an object.
+
 ### Changes
 
 - Added misc.html to access Lab 4's word guessing game.

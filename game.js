@@ -111,8 +111,8 @@ function livesAfterGuess(lives, correct) {
    scoreFor("otter")     →  80
    ---------------------------------------------------------------------- */
 
-function scoreFor(word, lives) {
-
+function scoreFor(word, lives = STARTING_LIVES) {
+   return (word.length * 10) + (lives * 5);
 }
 
 

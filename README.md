@@ -10,6 +10,11 @@
 - Modernized buttons to a minimalist style within all web pages
 - Added basic styling to gameStyles to display nav bar
 - Added CSS to retain original button styling in footer of game page
+- Implemented the following functions in game.js:
+    - `normalizeGuess()`
+    - `isValidGuess()`
+    - `alreadyGuessed()`
+    - `isCorrect()`
 
 **Live GitHub Pages URL**
 

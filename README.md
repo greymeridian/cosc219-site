@@ -18,6 +18,7 @@
     - `livesAfterGuess()`
     - `scoreFor()`
     - `statusMessage()`
+    - `gradeFor()`
 
 **Live GitHub Pages URL**
 
@@ -33,7 +34,7 @@
 ## Changes Post-Submission
 
 - Improved page readability with consistent content spacing, bordered tables, a defined navigation bar, and footer separation.
-- Uploaded some previous projects to GitHub and added links to projects.html
+- Uploaded some previous projects to GitHub and added links to `projects.html`
 
 ---
 
@@ -41,18 +42,18 @@
 
 ### Changes
 
-- Added mobile first responsive layout with Flexbox and CSS Grid. The nav bar, about page columns, and project page columns now adapt based on screen size.
+- Added mobile first responsive layout with `Flexbox` and `CSS Grid`. The nav bar, about page columns, and project page columns now adapt based on screen size.
 - Replaced placeholder text with portfolio information.
 
 ## Breakpoints
 
-- 38rem: Allows the navigation to display horizontally, the projects to use two columns, and the About page to use two columns.
-- 58rem: Allows the projects to use three columns without making the content too narrow.
+- `38rem`: Allows the navigation to display horizontally, the projects to use two columns, and the About page to use two columns.
+- `58rem`: Allows the projects to use three columns without making the content too narrow.
 
 ## Layout decisions
 
-- Flexbox is used for the navigation because the navigation is a one-dimensional layout.
-- CSS Grid is used for the project cards and the About page because these sections require content to be arranged into columns.
+- `Flexbox` is used for the navigation because the navigation is a one-dimensional layout.
+- `CSS Grid` is used for the project cards and the About page because these sections require content to be arranged into columns.
 
 **Live GitHub Pages URL**
 
@@ -88,7 +89,7 @@ I used a maximum width on the main content and centered it with automatic margin
 
 # COSC 219 — Lab 1
 
-## Student Additions to README
+## Student Additions to `README.md`
 
 **What the site is in two to three sentences**
 

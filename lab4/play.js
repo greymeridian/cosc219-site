@@ -68,8 +68,10 @@ function submitGuess(raw) {
   }
 
   const correct = isCorrect(letter, word);
-  guessedLetters = guessedLetters + letter;
+  //guessedLetters = guessedLetters + letter;
+  //lives = livesAfterGuess(lives, correct);
   lives = livesAfterGuess(lives, correct);
+  guessedLetters = guessedLetters + letter;
   over = lives <= 0 || hasWon(word, guessedLetters);
 
   render();

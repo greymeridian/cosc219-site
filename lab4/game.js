@@ -191,5 +191,5 @@ function hasWon(word, guessedLetters) {
    What does the guard buy?
 
    The guard prevents invalid input from reaching the rest of the guessing logic. normalizeGuess()
-   converts input to a standard format, but validation determines if the input is acceptable. 
+   converts input to a standard format, but validation determines if the input is acceptable.
 */

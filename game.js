@@ -133,7 +133,16 @@ function scoreFor(word, lives = STARTING_LIVES) {
    ---------------------------------------------------------------------- */
 
 function statusMessage(word, guessedLetters, lives) {
+   if (lives <= 0)
+      return `Out of lives. The word was "${word}".`;
 
+   if (hasWon(word, guessedLetters))
+      return `You got it! "${word}" with ${lives} ${lives === 1 ? "life" : "lives"} left.`;
+
+   const lifeText = lives === 1 ? "life" : "lives";
+   const guessedText = guessedLetters === "" ? "nothing yet" : guessedLetters;
+
+   return `${lives} ${lifeText} left. Guessed: ${guessedText}`;
 }
 
 

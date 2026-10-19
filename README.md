@@ -1,3 +1,22 @@
+# COSC 219 - Lab 4
+
+### Changes
+
+- Added misc.html to access Lab 4's word guessing game.
+- Changed Lab4's index.html to guessingGame.html to prevent issues.
+- Changed Lab4's styles.css to gameStyles.css to prevent issues.
+
+**Live GitHub Pages URL**
+
+- [My GitHub Pages Site](https://greymeridian.github.io/cosc219-site/)
+
+**AI Usage Declaration**
+
+- VSCode Copilot: to speed up manual input by accepting autocomplete suggestions where appropriate.
+- ChatGPT: assisted with explaining syntax and troubleshooting.
+
+---
+
 ## Changes Post-Submission
 
 - Improved page readability with consistent content spacing, bordered tables, a defined navigation bar, and footer separation.

@@ -10,13 +10,17 @@
 <body>
     <header>
         <nav class="site-nav">
-            <p>Portfolio</p>
+            <p>Ronald J.L. Lorette's Portfolio</p>
+            <fieldset>
+                <legend>Navigation</legend>
             <ul>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="about.html">About</a></li>
                 <li><a href="projects.html">Projects</a></li>
                 <li><a href="contact.html">Contact</a></li>
+                <li><a href="misc.html">Misc</a></li>
             </ul>
+            </fieldset>
         </nav>
         <h1>Contact Me:</h1>
     </header>
@@ -26,16 +30,16 @@
             <p>If you need to reach out to me, please feel free to contact me via the following options.</p>
             <form>
                 <fieldset>
-                    <label for="name">Name:</label>
-                    <input type="text" id="name" name="name" required>
+                    <legend>Name</legend>
+                    <input type="text" id="name" name="name" placeholder="Your Name" required>
                 </fieldset>
                 <fieldset>
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required>
+                    <legend>Email</legend>
+                    <input type="email" id="email" name="email" placeholder="your.email@example.com" required>
                 </fieldset>
                 <fieldset>
-                    <label for="message">Message:</label>
-                    <textarea id="message" name="message" rows="4" required></textarea>
+                    <legend>Message</legend>
+                    <textarea id="message" name="message" rows="4" placeholder="Enter your message here..." required></textarea>
                 </fieldset>
                 <fieldset>  
                     <legend>Contact Method</legend>
@@ -66,9 +70,14 @@
             </form>
         </section>
     </main>
-<footer>
-    <!-- noreferrer enforced by VSCode autocomplete, ensures security by preventing referral tracking -->
-    <p><a href="https://github.com/greymeridian" id="github-link" target="_blank" rel="noopener noreferrer">Check me out on GitHub</a></p>
+    <footer>
+        <fieldset>
+            <legend>Check Me Out</legend>
+            <!-- noreferrer enforced by VSCode autocomplete, ensures security by preventing referral tracking -->
+            <button><a href="https://github.com/greymeridian" id="github-link" target="_blank" rel="noopener noreferrer">On GitHub</a></button>
+            <button><a href="https://steamcommunity.com/id/GreyMeridian" id="steam-link" target="_blank" rel="noopener noreferrer">On Steam</a></button>
+            <button><a href="https://www.linkedin.com/in/ronald-lorette/" id="linkedin-link" target="_blank" rel="noopener noreferrer">On LinkedIn</a></button>
+        </fieldset>
     </footer>
 </body>
 </html>

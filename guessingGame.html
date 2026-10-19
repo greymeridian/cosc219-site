@@ -165,17 +165,33 @@
 <body>
 
   <main>
+	<nav class="site-nav">
+            <p>Ronald J.L. Lorette's Portfolio</p>
+            <fieldset>
+                <legend>Navigation</legend>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="misc.html">Misc</a></li>
+            </ul>
+            </fieldset>
+        </nav>
     <h1>Word Guess</h1>
 
     <p id="word" class="word">_____</p>
     <p id="status" class="status">Press New game to start.</p>
 
     <form id="guess-form">
+	<fieldset>
+	  <legend>Make a Guess</legend>
       <label for="guess">Your guess</label>
       <input type="text" id="guess" name="guess" maxlength="1"
              autocomplete="off" autocapitalize="off">
       <button type="submit">Guess</button>
       <button type="button" id="new-game">New game</button>
+	  </fieldset>
     </form>
 
     <p id="result" class="result"></p>

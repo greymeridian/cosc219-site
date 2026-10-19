@@ -16,6 +16,7 @@
     - `alreadyGuessed()`
     - `isCorrect()`
     - `livesAfterGuess()`
+    - `scoreFor()`
 
 **Live GitHub Pages URL**
 

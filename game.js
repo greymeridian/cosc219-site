@@ -47,7 +47,7 @@ function normalizeGuess(input) {
    ---------------------------------------------------------------------- */
 
 function isValidGuess(input) {
-
+   return normalizeGuess(input) !== "";
 }
 
 

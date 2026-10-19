@@ -30,9 +30,9 @@ const STARTING_LIVES = 6;
 
 function normalizeGuess(input) {
    const guess = input.trim().toLowerCase();
-   if (guess.length !== 1 || guess < 'a' || guess > 'z') {
+   if (guess.length !== 1 || guess < 'a' || guess > 'z') 
      return "";
-   }
+   
    return guess;
 }
 
@@ -93,7 +93,10 @@ function isCorrect(letter, word) {
    ---------------------------------------------------------------------- */
 
 function livesAfterGuess(lives, correct) {
+   if (correct) 
+      return lives;
 
+   return Math.max(0, lives - 1);
 }
 
 

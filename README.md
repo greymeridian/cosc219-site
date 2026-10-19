@@ -5,6 +5,9 @@
 - Added misc.html to access Lab 4's word guessing game.
 - Changed Lab4's index.html to guessingGame.html to prevent issues.
 - Changed Lab4's styles.css to gameStyles.css to prevent issues.
+- Added misc.html to nav bar
+- Added nav bar to game pages
+- Added basic styling to gameStyles to display nav bar
 
 **Live GitHub Pages URL**
 

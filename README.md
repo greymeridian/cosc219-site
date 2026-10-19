@@ -7,7 +7,9 @@
 - Changed Lab4's styles.css to gameStyles.css to prevent issues.
 - Added misc.html to nav bar
 - Added nav bar to game pages
+- Modernized buttons to a minimalist style within all web pages
 - Added basic styling to gameStyles to display nav bar
+- Added CSS to retain original button styling in footer of game page
 
 **Live GitHub Pages URL**
 

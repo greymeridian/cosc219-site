@@ -63,7 +63,7 @@ function isValidGuess(input) {
    ---------------------------------------------------------------------- */
 
 function alreadyGuessed(letter, guessedLetters) {
-
+   return guessedLetters.toLowerCase().includes(letter.toLowerCase());
 }
 
 

@@ -3,20 +3,21 @@
 ### Changes
 
 - Added misc.html to access Lab 4's word guessing game.
-- Changed Lab4's index.html to guessingGame.html to prevent issues.
-- Changed Lab4's styles.css to gameStyles.css to prevent issues.
-- Added misc.html to nav bar
+- Changed Lab4's `index.html` to `guessingGame.html` to prevent issues.
+- Changed Lab4's `styles.css` to `gameStyles.css` to prevent issues.
+- Added `misc.html` to nav bar
 - Added nav bar to game pages
 - Modernized buttons to a minimalist style within all web pages
-- Added main styles.css before gameStyle.css inside guessingGame.html to retain consistent styling across pages
+- Added main `styles.css` before `gameStyle.css` inside `guessingGame.html` to retain consistent styling across pages
 - Added CSS to gameStyles.css to retain original button styling in footer of game page
-- Implemented the following functions in game.js:
+- Implemented the following functions in `game.js`:
     - `normalizeGuess()`
     - `isValidGuess()`
     - `alreadyGuessed()`
     - `isCorrect()`
     - `livesAfterGuess()`
     - `scoreFor()`
+    - `statusMessage()`
 
 **Live GitHub Pages URL**
 

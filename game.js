@@ -78,7 +78,7 @@ function alreadyGuessed(letter, guessedLetters) {
    ---------------------------------------------------------------------- */
 
 function isCorrect(letter, word) {
-
+   return isValidGuess(letter) && word.toLowerCase().includes(letter.toLowerCase());
 }
 
 

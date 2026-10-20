@@ -1,3 +1,25 @@
+### Post-Submission Improvements
+
+Following the submission of Lab 4, I began updating the COSC219 portfolio website to improve its visual design, navigation, and responsiveness.
+
+#### Changes Made
+
+- **Navigation redesign:** Replaced the original navigation layout with a two-tier header inspired by the Okanagan College website.
+- **College branding:** Added the Okanagan College logo, a portfolio identifier, and a consistent magenta-red accent colour.
+- **Active page indicators:** Added visual highlighting to identify the currently selected navigation page.
+- **Button styling:** Updated the primary button colour to match the new navigation accents.
+- **Responsive layout:** Refined the header and navigation styling for different screen sizes.
+- **Projects page:** Revised the CSS Grid layout to provide more horizontal space for project tables and improve the positioning of page headings and project sections.
+- **HTML structure:** Corrected markup issues discovered during the redesign.
+
+#### Planned Improvements
+
+- Implement a persistent light/dark theme toggle.
+- Make the contact form functional through a form submission service.
+- Continue improving the visual presentation of projects and other portfolio content.
+
+These changes are part of the ongoing development of the portfolio and were undertaken after the original Lab 4 submission.
+
 # COSC 219 - Lab 4
 
 - The word guessing game can be accessed via the `misc` page in the navigation panel. It contains a button to redirect the user to the guessing game. I centralized it here in anticipation for any further miscellaneous additions or games that may show up in the future for easier integration to the site.

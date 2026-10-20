@@ -9,7 +9,7 @@ Following the submission of Lab 4, I began updating the COSC219 portfolio websit
 - **Active page indicators:** Added visual highlighting to identify the currently selected navigation page.
 - **Button styling:** Updated the primary button colour to match the new navigation accents.
 - **Responsive layout:** Refined the header and navigation styling for different screen sizes.
-- **Projects page:** Revised the CSS Grid layout to provide more horizontal space for project tables and improve the positioning of page headings and project sections.
+- **Projects page:** Replaced the original project tables with individual HTML project cards, organized into responsive CSS Grid layouts. Added styled card backgrounds, magenta accent borders, subtle shadows, and matching project links to improve readability and presentation across desktop and mobile devices.
 - **HTML structure:** Corrected markup issues discovered during the redesign.
 
 #### Planned Improvements

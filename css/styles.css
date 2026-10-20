@@ -70,13 +70,11 @@ button:focus-visible {
 }
 
 .site-nav {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+    display: block;
     margin-bottom: 1rem;
-    padding: 1rem;
-    border: 1px solid var(--border-color);
-    border-radius: 0.5rem;
+    padding: 0;
+    border: none;
+    border-radius: 0;
 }
 
 .site-nav ul {
@@ -128,10 +126,28 @@ caption {
     margin-bottom: 0.5rem;
 }
 
+/* Footer styling to match site header */
+
 footer {
     margin-top: 2rem;
-    padding-top: 1rem;
-    border-top: 1px solid var(--border-color);
+    padding: 1.5rem;
+    background-color: #50534e;
+    color: #ffffff;
+    border-top: 4px solid #e50051;
+}
+
+footer fieldset {
+    max-width: 75rem;
+    margin: 0 auto;
+    padding: 1rem;
+    border: 1px solid #888b86;
+    border-radius: 0.5rem;
+}
+
+footer legend {
+    padding: 0 0.5rem;
+    color: #ffffff;
+    font-weight: 600;
 }
 
 input[type="text"],
@@ -171,6 +187,79 @@ main.projects-layout {
     main.projects-layout > h1,
     main.projects-layout > article:last-child {
         grid-column: 1 / -1;
+    }
+}
+
+
+/* Individual project cards */
+
+.project-grid > .project-card {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    min-height: 15rem;
+    padding: 1.5rem;
+    gap: 1rem;
+
+    background-color: #f8f8f8;
+    border: 1px solid #cccccc;
+    border-left: 5px solid var(--primary-color);
+    border-radius: 0.5rem;
+
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.project-card h3 {
+    margin: 0;
+    color: #41443f;
+    font-size: 1.2rem;
+    line-height: 1.4;
+}
+
+.project-card p {
+    margin: 0;
+    line-height: 1.6;
+}
+
+.project-card p:last-child {
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid #dddddd;
+}
+
+.project-card a {
+    display: inline-block;
+    padding: 0.4rem 0.75rem;
+    margin-right: 0.5rem;
+
+    background-color: var(--primary-color);
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 0.25rem;
+    font-weight: 600;
+}
+
+.project-card a:hover {
+    background-color: #41443f;
+}
+
+.project-card a:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 3px;
+}
+
+
+/* Prevent project tables from breaking mobile layout */
+
+.projects-layout > article {
+    min-width: 0;
+}
+
+@media (max-width: 600px) {
+    .projects-layout table {
+        display: block;
+        overflow-x: auto;
+        max-width: 100%;
     }
 }
 
@@ -295,5 +384,19 @@ main.projects-layout {
     .site-nav a {
         padding: 0.85rem 0.9rem;
         font-size: 0.9rem;
+    }
+}
+
+/* Mobile footer layout */
+
+@media (max-width: 600px) {
+    footer {
+        padding: 1rem 0;
+    }
+
+    footer fieldset {
+        width: 100%;
+        max-width: none;
+        padding: 0.75rem;
     }
 }

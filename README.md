@@ -1,3 +1,16 @@
+# COSC219 Lab 5
+
+**Live GitHub Pages URL**
+
+- [My GitHub Pages Site](https://greymeridian.github.io/cosc219-site/)
+
+**AI Usage Declaration**
+
+- VSCode Copilot: to speed up manual input by accepting autocomplete suggestions where appropriate.
+- ChatGPT: assisted with explaining syntax and troubleshooting.
+
+---
+
 ### Post-Submission Improvements
 
 Following the submission of Lab 4, I began updating the COSC219 portfolio website to improve its visual design, navigation, and responsiveness.

@@ -11,7 +11,7 @@
 
 ---
 
-### Post-Submission Improvements
+### Post-Lab4 Submission Improvements
 
 Following the submission of Lab 4, I began updating the COSC219 portfolio website to improve its visual design, navigation, and responsiveness.
 
@@ -76,7 +76,7 @@ These changes are part of the ongoing development of the portfolio and were unde
 
 ---
 
-## Changes Post-Submission
+## Post-Lab3 Submission Changes
 
 - Improved page readability with consistent content spacing, bordered tables, a defined navigation bar, and footer separation.
 - Uploaded some previous projects to GitHub and added links to `projects.html`

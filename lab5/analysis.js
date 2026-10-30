@@ -194,7 +194,11 @@ function countByRating(trails) {
    ---------------------------------------------------------------------- */
 
 function openDistance(trails) {
-
+ const total = trails
+    .filter(trail => !trail.closed)
+    .map(trail => trail.km)
+    .reduce((sum, km) => sum + km, 0);
+  return Math.round(total * 10) / 10; 
 }
 
 
@@ -208,7 +212,10 @@ function openDistance(trails) {
    ---------------------------------------------------------------------- */
 
 function summaryLines(trails) {
-
+  return trails.map(trail => {
+    const closedText = trail.closed ? " (closed)" : "";
+    return `${trail.name} — ${trail.km} km, ${trail.rating}${closedText}`;
+  });
 }
 
 
@@ -231,12 +238,14 @@ function summaryLines(trails) {
    ---------------------------------------------------------------------- */
 
 function report(trails) {
+  const open = openTrails(trails);
+
   return {
     total: trails.length,
-    open: trails.filter(trail => !trail.closed).length,
-    closed: trails.filter(trail => trail.closed).length,
+    open: open.length,
+    closed: trails.length - open.length,
     openKm: openDistance(trails),
-    longestOpen: longestTrail(trails.filter(trail => !trail.closed))?.name || null,
+    longestOpen: longestTrail(open)?.name ?? null,
     byRating: countByRating(trails)
   };
 }

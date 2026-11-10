@@ -4,6 +4,7 @@
 */
 
 // import the two classes from ./trail.js — note the .js is required
+import { Trail, BikeTrail } from "./trail.js";
 
 
 export class TrailRegistry {
@@ -15,9 +16,7 @@ export class TrailRegistry {
 
   /* Accept an optional array of Trails and add each one. */
   constructor(trails = []) {
-    for (const trail of trails) {
-      this.add(trail);
-    }
+    trails.forEach(trail => this.add(trail));
   }
 
 
@@ -54,38 +53,53 @@ export class TrailRegistry {
 
   /* find(name) — the matching Trail, ignoring case, or undefined. */
   find(name) {
-    return this.#trails.find(trail => trail.name.toLowerCase() === name.toLowerCase());
+    return this.#trails.find(
+      trail => trail.name.toLowerCase() === name.toLowerCase()
+   );
   }
 
 
   /* byRating(rating) — every trail with that rating. */
   byRating(rating) {
-
+      return this.#trails.filter(
+        trail => trail.rating === rating
+      );
   }
 
 
   /* get openTrails — every trail that is not closed. */
   get openTrails() {
-
+      return this.#trails.filter(
+          trail => !trail.isClosed
+      );
   }
 
 
   /* get totalDistance — all the km added up, to one decimal place. */
   get totalDistance() {
-
+      const total = this.#trails.reduce(
+         (sum, trail) => sum + trail.km, 0
+      );
+      return Math.round(total * 10) / 10;
   }
 
 
   /* get steepest — the trail with the largest steepness.
      undefined when there are none. */
   get steepest() {
+      if (this.#trails.length === 0) return undefined;
 
+      return this.#trails.reduce(
+      (best, trail) =>
+        trail.steepness > best.steepness ? trail : best,
+      this.#trails[0]
+    );
   }
 
 
   /* describeAll() — an array of every trail's describe() string. */
   describeAll() {
-
+      return this.#trails.map(trail => trail.describe());
   }
 
 
@@ -95,6 +109,11 @@ export class TrailRegistry {
      becomes a Trail. Default a missing gain to 0.
      ---------------------------------------------------------------- */
   static fromData(rows) {
-
+      const trails = rows.map(row => {
+         const {name, km, rating, gain = 0, surface} = row;
+         if ("surface" in row) return new BikeTrail(name, km, rating, gain, surface);
+         return Trail.fromObject(row);
+      });
+      return new TrailRegistry(trails);
   }
 }

@@ -169,6 +169,12 @@ img {
     height: auto;
 }
 
+.main-portrait {
+    width: 300px;
+    max-width: 100%;
+    height: auto;
+}
+
 /* Projects page layout */
 
 main.projects-layout {

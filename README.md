@@ -1,4 +1,4 @@
-# Lab 06 — Objects, Classes & Modules
+# COSC219 Lab 06
 
 `#trails` is private so callers cannot directly modify the registry’s collection or bypass the validation in `add()`.
 

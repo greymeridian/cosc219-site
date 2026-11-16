@@ -1,0 +1,29 @@
+/* Provided. Labs 2 and 3 were the CSS labs. */
+:root { --brand:#1b7f5a; --ink:#12181f; --muted:#6b7885;
+        --line:#dce1e6; --err:#a62b23; }
+*, *::before, *::after { box-sizing: border-box; }
+body { font-family: system-ui, sans-serif; line-height:1.6; color:var(--ink); margin:0; }
+main { max-width:34rem; margin:0 auto; padding:2rem 1rem; }
+h1 { font-size:1.6rem; }
+form { display:flex; gap:.6rem; align-items:flex-end; flex-wrap:wrap;
+       padding-bottom:1rem; border-bottom:1px solid var(--line); }
+.field { flex:1 1 8rem; }
+label { display:block; font-weight:600; font-size:.9rem; }
+input { width:100%; padding:.45rem; border:1px solid var(--muted); border-radius:6px;
+        font-family:inherit; font-size:1rem; }
+button { padding:.45rem .9rem; font-family:inherit; font-size:.95rem;
+         border-radius:6px; border:1px solid var(--brand);
+         background:var(--brand); color:#fff; cursor:pointer; }
+button.ghost { background:#fff; color:var(--brand); margin-top:1rem; }
+input:focus, button:focus { outline:3px solid var(--brand); outline-offset:2px; }
+.error { color:var(--err); min-height:1.5em; font-weight:600; }
+.summary { color:var(--muted); }
+ul { list-style:none; padding:0; }
+.trail { display:flex; align-items:center; gap:.6rem;
+         padding:.6rem .2rem; border-bottom:1px solid var(--line); }
+.trail-name { flex:1; font-weight:600; }
+.trail-km { color:var(--muted); font-variant-numeric:tabular-nums; }
+.trail button { padding:.3rem .7rem; font-size:.85rem; }
+.trail [data-action="delete"] { background:#fff; color:var(--err);
+                                border-color:var(--err); }
+.is-closed .trail-name { text-decoration:line-through; color:var(--muted); }

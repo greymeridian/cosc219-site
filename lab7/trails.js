@@ -20,7 +20,12 @@
    ---------------------------------------------------------------------- */
 
 export function makeTrail(name, km) {
-
+   return {
+      id: String(Date.now()) + Math.random().toString(16).slice(2, 8),
+      name: name.trim(),
+      km: Number(km),
+      closed: false
+   };
 }
 
 
@@ -39,7 +44,8 @@ export function makeTrail(name, km) {
    ---------------------------------------------------------------------- */
 
 export function isValidTrail(name, km) {
-
+   const distance = Number(km);
+   return name.trim() !== "" && Number.isFinite(distance) && distance > 0;
 }
 
 
@@ -47,7 +53,7 @@ export function isValidTrail(name, km) {
    Spread, do not push. */
 
 export function addTrail(trails, trail) {
-
+   return [...trails, trail];
 }
 
 
@@ -55,7 +61,7 @@ export function addTrail(trails, trail) {
    An id that is not there simply changes nothing. */
 
 export function removeTrail(trails, id) {
-
+   return trails.filter(trail => trail.id !== id);
 }
 
 
@@ -66,7 +72,12 @@ export function removeTrail(trails, id) {
    ---------------------------------------------------------------------- */
 
 export function toggleTrail(trails, id) {
-
+   return trails.map(trail => {
+      if (trail.id === id) {
+         return { ...trail, closed: !trail.closed };
+      }
+      return trail;
+   });
 }
 
 
@@ -88,5 +99,14 @@ export function toggleTrail(trails, id) {
    ---------------------------------------------------------------------- */
 
 export function findAction(target) {
+   const button = target.closest("button[data-action]");
+   if (!button) return null;
 
+   const row = button.closest(".trail[data-id]");
+   if (!row) return null;
+
+   return {
+      action: button.dataset.action,
+      id: row.dataset.id
+   };
 }

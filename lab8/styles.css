@@ -1,0 +1,73 @@
+/* Trail Browser — needs fixing */
+
+:root {
+  --brand: #1b7f5a;
+  --ink:   #12181f;
+  --muted: #6b7885;
+  --line:  #dce1e6;
+}
+
+body {
+  font-family: system-ui, sans-serif;
+  line-height: 1.6;
+  color: var(--ink);
+  margin: 0;
+}
+
+main {
+  max-width: 34rem;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+nav ul { list-style: none; padding: 1rem; margin: 0; }
+nav li { display: inline-block; margin-right: 1rem; }
+nav a  { color: var(--brand); text-decoration: none; }
+
+#controls {
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+  flex-wrap: wrap;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--line);
+}
+
+#search {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid var(--muted);
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+button {
+  padding: 0.45rem 0.9rem;
+  font-family: inherit;
+  border-radius: 6px;
+  border: 1px solid var(--brand);
+  background: var(--brand);
+  color: #fff;
+  cursor: pointer;
+}
+
+input:focus,
+select:focus,
+button:focus {
+  outline: none;
+}
+
+#count { color: var(--muted); }
+
+ul#results { list-style: none; padding: 0; }
+
+.trail {
+  display: flex;
+  gap: 0.6rem;
+  padding: 0.6rem 0.2rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.trail-name { flex: 1; font-weight: 600; }
+.trail-km   { color: var(--muted); }

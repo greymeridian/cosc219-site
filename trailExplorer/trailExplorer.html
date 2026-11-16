@@ -1,22 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/styles.css">
     <script defer src="../lab5/data.js"></script>
     <script defer src="../lab5/analysis.js"></script>
-    <script defer src="./trailExplorer.js"></script>
+    <script type="module" src="./trailExplorer.js"></script>
     <title>Trail Explorer</title>
 </head>
+
 <body>
-    <header>
-        <h1>Trail Explorer</h1>
+    <header class="site-header">
+        <div class="header-brand">
+            <a href="../index.html" class="brand-logo">
+                <img src="../images/OC_Primary_Logo_Red_RGB_1080px@72ppi_Digital.png" alt="Okanagan College">
+            </a>
+            <span class="site-identity">Ronald J.L. Lorette | Portfolio</span>
+        </div>
+        <nav class="site-nav" aria-label="Main navigation">
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../projects.html">Projects</a></li>
+                <li><a href="../misc.html" aria-current="location">Misc</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+            </ul>
+        </nav>
     </header>
-    <main>
-        <p>Welcome to the Trail Explorer!</p>
+    <main class="trail-explorer">
+        <h1>Okanagan Trail Explorer</h1>
+
+        <ul class="trail-overview">
+            <li><strong id="total-trails"></strong> total trails</li>
+            <li><strong id="open-trails"></strong> open trails</li>
+            <li><strong id="open-distance"></strong> of open trails</li>
+        </ul>
+
+        <div class="trail-workspace">
+            <fieldset>
+                <legend>Browse trails</legend>
+
+                <div class="trail-filters">
+                    <div>
+                        <label for="trail-search">Search by name</label>
+                        <input type="text" id="trail-search">
+                    </div>
+
+                    <div>
+                        <label for="trail-rating">Difficulty</label>
+                        <select id="trail-rating">
+                            <option value="">All ratings</option>
+                            <option value="easy">Easy</option>
+                            <option value="moderate">Moderate</option>
+                            <option value="hard">Hard</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="trail-sort">Sort by</label>
+                        <select id="trail-sort">
+                            <option value="original">Original order</option>
+                            <option value="distance">Shortest first</option>
+                        </select>
+                    </div>
+                </div>
+
+                <label class="trail-availability">
+                    <input type="checkbox" id="open-only"> Open only
+                </label>
+
+                <div class="trail-results-info">
+                    <p id="result-count" role="status"></p>
+                    <p>Steepest match: <strong id="steepest-trail"></strong></p>
+                </div>
+                <button type="button" id="add-all-trails">Add all trails</button>
+                <p id="add-all-status" role="status"></p>
+                <ul id="trail-results" role="list"></ul>
+            </fieldset>
+
+            <fieldset>
+                <legend>My Trail List</legend>
+                <p>Add a trail from the catalog or enter your own.</p>
+
+                <form id="add-trail-form">
+                    <label for="saved-trail-name">Trail name</label>
+                    <input type="text" id="saved-trail-name" required>
+
+                    <label for="saved-trail-distance">Distance (km)</label>
+                    <input type="number" id="saved-trail-distance" step="any" required>
+
+                    <button type="submit">Add custom trail</button>
+                </form>
+
+                <p id="tracker-error" role="alert"></p>
+                <p id="tracker-summary" role="status"></p>
+                <ul id="saved-trails" role="list"></ul>
+                <button type="button" id="clear-saved-trails">Clear saved trails</button>
+            </fieldset>
+        </div>
     </main>
     <footer>
+        <fieldset>
+            <legend>Check Me Out</legend>
+            <button><a href="https://github.com/greymeridian" id="github-link" target="_blank"
+                    rel="noopener noreferrer">On GitHub</a></button>
+            <button><a href="https://steamcommunity.com/id/GreyMeridian" id="steam-link" target="_blank"
+                    rel="noopener noreferrer">On Steam</a></button>
+            <button><a href="https://www.linkedin.com/in/ronald-lorette/" id="linkedin-link" target="_blank"
+                    rel="noopener noreferrer">On LinkedIn</a></button>
+        </fieldset>
     </footer>
 </body>
+
 </html>

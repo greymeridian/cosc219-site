@@ -13,6 +13,7 @@ import {
    toggleTrail
 } from "./trails.js";
 import { renderTrails, summaryText } from "./render.js";
+import { clearTrails, loadTrails, saveTrails } from "./storage.js";
 
 const form = document.querySelector("#add-form");
 const nameInput = form.querySelector("#name");
@@ -23,14 +24,17 @@ const list = document.querySelector("#trail-list");
 
 /* Load the saved trails into a `let` — the array is replaced, not edited,
    every time something changes. */
-let trails = [];
+let trails = loadTrails();
 
 /* update() — redraw the list, rewrite the summary, and save.
    Call it whenever the data changes, and once at the very bottom of this
    file so the page is not blank on load. */
-function update() {
+function update(save = true) {
    renderTrails(trails, list);
    summary.textContent = summaryText(trails);
+   if (save) {
+      saveTrails(trails);
+   }
 }
 
 /* The add form.
@@ -87,4 +91,10 @@ list.addEventListener("click", event => {
 });
 
 /* The Clear all button: empty the array, clear storage, update. */
-update();
+document.querySelector("#clear").addEventListener("click", () => {
+   trails = [];
+   clearTrails();
+   update(false);
+});
+
+update(false);

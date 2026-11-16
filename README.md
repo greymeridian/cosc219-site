@@ -1,3 +1,20 @@
+# COSC 219 Lab 7 — Trail Tracker
+
+The trail list uses one delegated click listener so the Close, Reopen, and Delete buttons keep working after the rows are rebuilt.
+
+If corrupt JSON in localStorage goes unhandled, `JSON.parse()` throws during startup and the app cannot render, so `loadTrails()` falls back to an empty array.
+
+**Live GitHub Pages URL**
+
+- [My GitHub Pages Site](https://greymeridian.github.io/cosc219-site/)
+
+**AI Usage Declaration**
+
+- VSCode Copilot: to speed up manual input by accepting autocomplete suggestions where appropriate.
+- ChatGPT: assisted with explaining syntax and troubleshooting.
+
+---
+
 # COSC219 Lab 06
 
 `#trails` is private so callers cannot directly modify the registry’s collection or bypass the validation in `add()`.
@@ -15,7 +32,7 @@ Part A reflection: Nothing in Part A surprised me because reference assignment, 
 
 ---
 
-# COSC219 Lab 5
+# COSC219 Lab 05
 
 ## Summary
 This lab uses JavaScript array methods to analyze a dataset of ten Okanagan trails, including their distances, difficulty ratings, and closure statuses.
@@ -59,7 +76,7 @@ Following the submission of Lab 4, I began updating the COSC219 portfolio websit
 
 These changes are part of the ongoing development of the portfolio and were undertaken after the original Lab 4 submission.
 
-# COSC 219 - Lab 4
+# COSC 219 - Lab 04
 
 - The word guessing game can be accessed via the `misc` page in the navigation panel. It contains a button to redirect the user to the guessing game. I centralized it here in anticipation for any further miscellaneous additions or games that may show up in the future for easier integration to the site.
 
@@ -109,7 +126,7 @@ These changes are part of the ongoing development of the portfolio and were unde
 
 ---
 
-# COSC 219 - Lab 3
+# COSC 219 - Lab 03
 
 ### Changes
 
@@ -137,7 +154,7 @@ These changes are part of the ongoing development of the portfolio and were unde
 
 ---
 
-# COSC 219 — Lab 2
+# COSC 219 — Lab 02
 
 ### Changes
 
@@ -158,7 +175,7 @@ I used a maximum width on the main content and centered it with automatic margin
 
 ---
 
-# COSC 219 — Lab 1
+# COSC 219 — Lab 01
 
 ## Student Additions to `README.md`
 

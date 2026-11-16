@@ -35,7 +35,42 @@
    ---------------------------------------------------------------------- */
 
 export function createTrailItem(trail) {
+  const item = document.createElement("li");
+  item.className = "trail";
+  item.dataset.id = trail.id;
+  if (trail.closed) {
+    item.classList.add("is-closed");
+  }
 
+  const name = document.createElement("span");
+  name.className = "trail-name";
+  name.textContent = trail.name;
+  
+  const distance = document.createElement("span");
+  distance.className = "trail-km";
+  distance.textContent = `${trail.km} km`;
+
+  const toggleButton = document.createElement("button");
+  toggleButton.type = "button";
+  toggleButton.dataset.action = "toggle";
+
+  const toggleLabel = document.createElement("span");
+  toggleLabel.className = "btn-label";
+  toggleLabel.textContent = trail.closed ? "Reopen" : "Close";
+  toggleButton.appendChild(toggleLabel);
+
+  const deleteButton = document.createElement("button");
+  deleteButton.type = "button";
+  deleteButton.dataset.action = "delete";
+  deleteButton.setAttribute("aria-label", `Delete ${trail.name}`);
+
+  const deleteLabel = document.createElement("span");
+  deleteLabel.className = "btn-label";
+  deleteLabel.textContent = "Delete";
+  deleteButton.appendChild(deleteLabel);
+
+  item.append(name, distance, toggleButton, deleteButton);
+  return item;
 }
 
 
@@ -46,7 +81,8 @@ export function createTrailItem(trail) {
    ---------------------------------------------------------------------- */
 
 export function renderTrails(trails, container) {
-
+  const items = trails.map(createTrailItem);
+  container.replaceChildren(...items);
 }
 
 
@@ -60,5 +96,13 @@ export function renderTrails(trails, container) {
    ---------------------------------------------------------------------- */
 
 export function summaryText(trails) {
+  if (trails.length === 0) {
+    return "No trails yet. Add one above.";
+  }
 
+  const openCount = trails.filter(trail => !trail.closed).length;
+  const totalKm = trails.reduce((total, trail) => total + trail.km, 0);
+  const trailLabel = trails.length === 1 ? "trail" : "trails";
+
+  return `${trails.length} ${trailLabel}, ${openCount} open, ${totalKm.toFixed(1)} km total.`;
 }

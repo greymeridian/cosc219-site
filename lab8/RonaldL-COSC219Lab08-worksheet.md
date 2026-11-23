@@ -18,7 +18,7 @@ Copy the block as many times as you need.
 **How I found it** — which tool, and what did it tell you?
 (Console message? Elements panel? Reading the CSS? Tabbing through the page?)
 
-- Inspected `<main>` in `Elements` and found an `h1` followed by an `h3`
+- After the tests passed on W3C, I inspected `<main>` in "Elements" and found an `h1` followed by an `h3`
 
 **Cause** — why did that happen? Name the concept, not just the line.
 
@@ -43,7 +43,7 @@ Copy the block as many times as you need.
 
 **How I found it**
 
-- Inspected the search input in `Elements`. Showed that "Search by name" came from its `placeholder` and there was no label linked to `id="search"`
+- After passing a W3C check, Inspected the search input in `Elements`. Showed that "Search by name" came from its `placeholder` and there was no label linked to `id="search"`
 
 **Cause**
 
@@ -64,40 +64,68 @@ Copy the block as many times as you need.
 
 ---
 
-## Fault 3
+## Fault 3: Search overflow
 
 **Symptom**
 
+- Could not find any symptoms, when resizing the viewport, the search field's box scaled normally (even at or < 400px), but `check.js` is reporting **"STILL BROKEN box-sizing: border-box is set"**
 
 **How I found it**
 
+- Reviewed the following block inside `check.js`
+
+  ```javascript
+    group("CSS");
+    is("box-sizing: border-box is set",
+       () => /box-sizing\s*:\s*border-box/.test(css), true,
+       "Lecture 4 — try the page at 400px wide and watch the search box");
+  ```
 
 **Cause**
 
+- With `content-box`, `width: 100%` should fill the available width with the cotent box; the field's padding and borders add to that width, causing the search field to extend past the form's right edge at a narrow width (However this failed to appear when testing)
 
 **Fix**
 
+- Added the following line to `#search` inside `styles.css`
+  ```css
+  box-sizing: border-box;
+  ```
+
+- No noticeable difference on my end, but it resolved the error within `check.js`
 
 **Lecture**
+
+- Lecture 4
 
 
 ---
 
-## Fault 4
+## Fault 4: Keyboard Focus
 
 **Symptom**
 
+- Improper focus when tabbing
 
 **How I found it**
 
+- I tabbed to the search input but it did not outline the search bar. Inspected it's `:focus` rule in "Styles" pane, and it applied `outline: none`.
 
 **Cause**
 
+- Stylesheet overrides the browser's focus outline and supplies no replacement
 
 **Fix**
 
+- Added the following lines to `:focus`
+  ```css
+   outline: 2px solid var(--brand);
+   outline-offset: 2px;
+  ```
 
 **Lecture**
+
+- Lecture 4
 
 
 ---
@@ -182,6 +210,9 @@ Copy the block as many times as you need.
 
 **Which fault took you longest, and why?**
 
+- Fault #3, box-sizing in CSS, as it did not have any visible symptoms before and after the fix. Had to directly inspect the code for `check.js` to see what it was requiring.
 
 **Which one would you never have found without the checker?**
+
+- Also fault #3 for the above aforementioned reasons.
 

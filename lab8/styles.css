@@ -34,6 +34,7 @@ nav a  { color: var(--brand); text-decoration: none; }
 }
 
 #search {
+  box-sizing: border-box;
   width: 100%;
   padding: 0.5rem;
   border: 1px solid var(--muted);
@@ -55,7 +56,8 @@ button {
 input:focus,
 select:focus,
 button:focus {
-  outline: none;
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
 }
 
 #count { color: var(--muted); }

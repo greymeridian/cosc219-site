@@ -83,7 +83,7 @@ Copy the block as many times as you need.
 
 **Cause**
 
-- With `content-box`, `width: 100%` should fill the available width with the cotent box; the field's padding and borders add to that width, causing the search field to extend past the form's right edge at a narrow width (However this failed to appear when testing)
+- With `content-box`, `width: 100%` should fill the available width with the cotent box; the field's padding and borders add to that width, which can cause the search field to extend past the form's right edge at a narrow width (However this failed to appear when testing)
 
 **Fix**
 
@@ -130,78 +130,162 @@ Copy the block as many times as you need.
 
 ---
 
-## Fault 5
+## Fault 5: Equality Coercion
 
 **Symptom**
 
+- Checker flags the rating comparisons, but the supplied rating strings can still filter correctly.
 
 **How I found it**
 
+- Inspected `matches()` in `app.js` and found that `const byRating` used `==` as a comparator.
 
 **Cause**
 
+- Loose eqaulity can convert values of different types before comparing them. The rating is meant to compare <u>exact</u> `String` values.
 
 **Fix**
 
+- Changed the following line
+  ```javascript
+  const byRating = rating == "all" || trail.rating == rating;
+  ```
+
+  to
+
+  ```javascript
+  const byRating = rating === "all" || trail.rating === rating;
+  ```
 
 **Lecture**
+
+- Lecture 7
 
 
 ---
 
-## Fault 6
+## Fault 6: Distance Sorting
 
 **Symptom**
 
+- Trail distances appeared to stay in their original order, for example, the `16km Mission Creek` trail always appears before the `12km Myra Canyon` trail.
 
 **How I found it**
 
+- Inspected `sortByDistance()` in `app.js` and saw that it calls `trails.sort()` ithout a comparator. Tried to add a comparator with the following line:
+  ```javascript
+    return trails.sort((a, b) => a.km - b.km);
+  ```
+
+- This resulted in the distance order check passing, but the array throwing the following error in the checker:
+  **STILL BROKEN sorting does not reorder the array it was given**
 
 **Cause**
 
+- By default, `sort()` will compare the `String` representations of the trail objects The representations are identical for these objects , so their order always retains. Adding a numeric comparator makes `sort()` reorder the array it receives, so it needs to be copied first.
 
 **Fix**
 
+- Changed `sortByDistance()` to the following operand:
+  ```javascript
+    return [...trails].sort((a, b) => a.km - b.km);
+  ```
 
 **Lecture**
+
+- Lecture 9
 
 
 ---
 
-## Fault 7
+## Fault 7: Trail Name rendered as HTML
 
 **Symptom**
 
+- The starter `render()` function treats markup in a trail name as HTML. The normal names in `data.js` display as intended, so the issue is hidden with the supplied trail list.
 
 **How I found it**
 
+- Inspected `render()` in `app.js` and followed `trail.name` into the string assigned to `li.innerHTML`
 
 **Cause**
 
+- Browser parses the string assigned to `li.innerHTML` as markup. Trail names containing HTML can create DOM elements instead of appearing as literal text.
 
 **Fix**
 
+- Inside the loop `trails.forEach()` in the function `render()` I replaced the `li.innerHTML` assignmentt with two spans, set t eh trail name using `textContent`, and appended both spans to the list. I replaced the following block:
+
+  ```javascript
+  trails.forEach((trail) => {
+      const li = document.createElement("li");
+      li.className = "trail";
+      li.innerHTML =
+        '<span class="trail-name">' + trail.name + '</span>' +
+        '<span class="trail-km">' + trail.km + ' km</span>';
+      results.append(li);
+    });
+  ```
+
+  with
+  ```javascript
+  trails.forEach((trail) => {
+      const li = document.createElement("li");
+      li.className = "trail";
+      const name = document.createElement("span");
+      name.className = "trail-name";
+      name.textContent = trail.name;
+  
+      const distance = document.createElement("span");
+      distance.className = "trail-km";
+      distance.textContent = `${trail.km} km`;
+  
+      li.append(name, distance);
+      results.append(li);
+    });
+  ```
 
 **Lecture**
+
+- Lecture 13
 
 
 ---
 
-## Fault 8
+## Fault 8: Form Submission Reloads the Page
 
 **Symptom**
 
+- Pressing `Apply` reloads the page, thus resetting the filter settings.
 
 **How I found it**
 
+- This was a hard rubric requirement on labs, as well as heavily covered in lecture, and on the midterm; I simply checked the listener on `form` in `app.js` and as suspected, it called `apply()` without canceling the submit event.
 
 **Cause**
 
+- A form submission triggers browser navigation by default; The handler updated the results with `apply()`, then the default submission reloaded the page, thus discarding that update.
 
 **Fix**
 
+- Added an `event` parameter to the existing `submit` listener and called `preventDefault()` immediately before `apply()`. Changing the function from:
+  ```javascript
+  form.addEventListener("submit", () => {
+    apply();
+  });
+  ```
+
+  to
+  ```javascript
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    apply();
+  });
+  ```
 
 **Lecture**
+
+- Lecture 14
 
 
 ---

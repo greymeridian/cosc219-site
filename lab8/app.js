@@ -15,13 +15,13 @@ const form = document.querySelector("#controls");
 
 export function matches(trail, search, rating) {
   const bySearch = trail.name.toLowerCase().includes(search.toLowerCase());
-  const byRating = rating == "all" || trail.rating == rating;
+  const byRating = rating === "all" || trail.rating === rating;
   return bySearch && byRating;
 }
 
 
 export function sortByDistance(trails) {
-  return trails.sort();
+  return [...trails].sort((a, b) => a.km - b.km);
 }
 
 

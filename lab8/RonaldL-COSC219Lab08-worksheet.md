@@ -64,7 +64,7 @@ Copy the block as many times as you need.
 
 ---
 
-## Fault 3: Search overflow
+## Fault 3: Search Overflow
 
 **Symptom**
 

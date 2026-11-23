@@ -39,7 +39,7 @@ Copy the block as many times as you need.
 
 **Symptom**
 
-- The search field's identifying text disappeared once I type.
+- The search field's identifying text disappeared once I began typing.
 
 **How I found it**
 
@@ -83,7 +83,7 @@ Copy the block as many times as you need.
 
 **Cause**
 
-- With `content-box`, `width: 100%` should fill the available width with the cotent box; the field's padding and borders add to that width, which can cause the search field to extend past the form's right edge at a narrow width (However this failed to appear when testing)
+- With `content-box`, `width: 100%` should fill the available width with the cotent box; The field's padding and borders add to that width, which can cause the search field to extend past the form's right edge at a narrow width (However this failed to appear when testing)
 
 **Fix**
 
